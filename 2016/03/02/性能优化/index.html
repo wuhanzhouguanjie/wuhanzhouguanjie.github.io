@@ -45,30 +45,22 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="1 Thread造成的内存泄漏如下代码所示：
-public class MyActivity extends Activity {  
-    public void onCreate(Bundle savedInstanceState) {  
-        super.onCreate(savedInstanceState);  
-        setContentView(R.layo">
+<meta name="description" content="参考自Trinea 性能优化系列总篇
+1. 线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
+Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安卓内存泄漏与解决方案">
-<meta property="og:url" content="http://yoursite.com/2016/03/02/安卓内存溢出的情形与解决方案/index.html">
+<meta property="og:title" content="性能优化">
+<meta property="og:url" content="http://yoursite.com/2016/03/02/性能优化/index.html">
 <meta property="og:site_name" content="Muffin">
-<meta property="og:description" content="1 Thread造成的内存泄漏如下代码所示：
-public class MyActivity extends Activity {  
-    public void onCreate(Bundle savedInstanceState) {  
-        super.onCreate(savedInstanceState);  
-        setContentView(R.layo">
-<meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/titanic.jpg">
-<meta property="og:updated_time" content="2016-03-02T05:58:44.504Z">
+<meta property="og:description" content="参考自Trinea 性能优化系列总篇
+1. 线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
+Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线">
+<meta property="og:updated_time" content="2016-03-02T07:50:27.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安卓内存泄漏与解决方案">
-<meta name="twitter:description" content="1 Thread造成的内存泄漏如下代码所示：
-public class MyActivity extends Activity {  
-    public void onCreate(Bundle savedInstanceState) {  
-        super.onCreate(savedInstanceState);  
-        setContentView(R.layo">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/titanic.jpg">
+<meta name="twitter:title" content="性能优化">
+<meta name="twitter:description" content="参考自Trinea 性能优化系列总篇
+1. 线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
+Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -80,7 +72,7 @@ public class MyActivity extends Activity {
 
 
 
-  <title> 安卓内存泄漏与解决方案 | Muffin </title>
+  <title> 性能优化 | Muffin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +228,7 @@ public class MyActivity extends Activity {
             
             
               
-                安卓内存泄漏与解决方案
+                性能优化
               
             
           </h1>
@@ -245,7 +237,7 @@ public class MyActivity extends Activity {
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-03-02T09:36:22+08:00" content="2016-03-02">
+            <time itemprop="dateCreated" datetime="2016-03-02T14:51:51+08:00" content="2016-03-02">
               2016-03-02
             </time>
           </span>
@@ -271,8 +263,8 @@ public class MyActivity extends Activity {
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/02/安卓内存溢出的情形与解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/安卓内存溢出的情形与解决方案/" itemprop="commentsCount"></span>
+                <a href="/2016/03/02/性能优化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/性能优化/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,190 +283,109 @@ public class MyActivity extends Activity {
       
 
       
-        <span itemprop="articleBody"><p><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/titanic.jpg"></p>
-<h2 id="1-Thread造成的内存泄漏"><a href="#1-Thread造成的内存泄漏" class="headerlink" title="1 Thread造成的内存泄漏"></a>1 Thread造成的内存泄漏</h2><p>如下代码所示：</p>
-<pre><code>public class MyActivity extends Activity {  
-    public void onCreate(Bundle savedInstanceState) {  
-        super.onCreate(savedInstanceState);  
-        setContentView(R.layout.activity_main);  
-        new MyThread().start();  
+        <span itemprop="articleBody"><p>参考自<a href="http://www.trinea.cn/android/performance/" target="_blank" rel="external">Trinea 性能优化系列总篇</a></p>
+<h2 id="1-线程的优化"><a href="#1-线程的优化" class="headerlink" title="1. 线程的优化"></a>1. 线程的优化</h2><p>由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。</p>
+<p>Java通过Executors提供四种线程池，分别为：<br>newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。<br>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+<p><li>(1).newCachedThreadPool </li><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。示例代码如下：</p>
+<pre><code>ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+for (int i = 0; i &lt; 10; i++) {
+    final int index = i;
+    try {
+        Thread.sleep(index * 1000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
     }
 
-    private class MyThread extends Thread {  
-        @Override  
-        public void run() {  
-            super.run();  
-            dosomthing();  
-        }  
-    }
-}     
-</code></pre><h3 id="1-1-原因"><a href="#1-1-原因" class="headerlink" title="1.1 原因"></a>1.1 原因</h3><p>假设MyThread的run函数是一个很费时的操作，当我们开启该线程后，将设备的横屏变为了竖屏,一般情况下当屏幕转换时会重新创建Activity，按照我们的想法，老的Activity应该会被销毁才对，然而事实上并非如此。<br>由于我们的线程是Activity的内部类，所以MyThread中保存了Activity的一个引用<b>（Java中，非静态内部类和匿名类都会潜在引用它们所属外部类）</b>。当MyThread的run函数没有结束时，MyThread是不会被销毁的，因此它所引用的老的Activity也不会被销毁，因此就出现了内存泄露的问题。</p>
-<h3 id="1-2-解决办法"><a href="#1-2-解决办法" class="headerlink" title="1.2 解决办法"></a>1.2 解决办法</h3><li>针对非静态内部类会持有外部类引用的问题，考虑将其改为静态内部类，切断Activity对Thread的强引用。</li><br><li>在线程内部采用弱引用保存context，切断Thread对Activity的强引用。</li>
+    cachedThreadPool.execute(new Runnable() {
 
-<p>改进代码如下：</p>
-<pre><code>public class MyActivity extends Activity {  
-    public void onCreate(Bundle savedInstanceState) {  
-        super.onCreate(savedInstanceState);  
-        setContentView(R.layout.activity_main);  
-        new MyThread().start();  
-    }
-
-    private static class MyThread extends Thread {  
-        WeakReference&lt;MyActivity&gt; mThreadActivityRef; 
-        public MyThread(ThreadAvoidActivity activity) {  
-            mThreadActivityRef = new WeakReference&lt;MyActivity(activity);  
-        }   
-        @Override  
-        public void run() {  
-            super.run();  
-            if (mThreadActivityRef == null)  
-                return;
-            if (mThreadActivityRef.get() != null)  
-                mThreadActivityRef.get().dosomthing(); 
-        }  
-    }
-}        
-</code></pre><h2 id="2-Handler造成的内存泄漏"><a href="#2-Handler造成的内存泄漏" class="headerlink" title="2 Handler造成的内存泄漏"></a>2 Handler造成的内存泄漏</h2><p>如下代码所示：</p>
-<pre><code>public class MyActivity extends Activity {  
-    private final Handler mHandler = new Handler(){
-        @override
-        public void handleMessage(Message msg){
-
+        @Override
+        public void run() {
+            System.out.println(index);
         }
-    }
-    public void onCreate(Bundle savedInstanceState) {  
-        super.onCreate(savedInstanceState);  
-        setContentView(R.layout.activity_main);  
-
-        mHandler.postDelayed(new Runnable){
-            @override
-            public void run(){
-                /*doSomething*/
-            }
-        },1000 * 60 * 10);
-        finish();
-    }
+    });
 }
-</code></pre><h3 id="2-1-原因"><a href="#2-1-原因" class="headerlink" title="2.1 原因"></a>2.1 原因</h3><p>当Android应用程序启动时，会为该应用程序的主线程创建一个Looper对象。这个Looper对象包含一个简单的消息队列Message Queue，并且能够循环的处理队列中的消息。这些消息包括大多数应用程序framework事件，例如Activity生命周期方法调用、button点击等，这些消息都会被添加到消息队列中并被逐个处理。另外，主线程的Looper对象会伴随该应用程序的整个生命周期。<br>然后，当主线程里，实例化一个Handler对象后，它就会自动与主线程Looper的消息队列关联起来。所有发送到消息队列的消息Message都会拥有一个对<b>Handler的引用</b>，所以当Looper来处理消息时，会据此回调handleMessage方法来处理消息。<br>当activity finish的时候由于该消息会一直保存在主线程的消息队列十分钟，又由于该消息持有对handler的引用，而handler又持有其外部类activity的引用，因此activity迟迟不能被回收造成内存泄漏。</p>
-<h3 id="2-2-解决办法"><a href="#2-2-解决办法" class="headerlink" title="2.2 解决办法"></a>2.2 解决办法</h3><p>和Thread内存泄漏的解决办法一直，采用static类加弱引用的方法解决。</p>
-<pre><code>public class MyActivity extends Activity {
-  private static class MyHandler extends Handler {
-    private final WeakReference&lt;MyActivity&gt; mActivity;
-    public MyHandler(MyActivity activity) {
-      mActivity = new WeakReference&lt;MyActivity&gt;(activity);
-    }
+</code></pre><p>线程池为无限大，当执行第二个任务时第一个任务已经完成，会复用执行第一个任务的线程，而不用每次新建线程。</p>
+<p><li>(2).newFixedThreadPool </li><br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。示例代码如下：</p>
+<pre><code>ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+for (int i = 0; i &lt; 10; i++) {
+    final int index = i;
+    fixedThreadPool.execute(new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                System.out.println(index);
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    });
+}
+</code></pre><p>因为线程池大小为3，每个任务输出index后sleep 2秒，所以每两秒打印3个数字。<br>定长线程池的大小最好根据系统资源进行设置。如Runtime.getRuntime().availableProcessors()。</p>
+<p><li>(3).newScheduledThreadPool </li><br>创建一个定长线程池，支持定时及周期性任务执行。延迟执行示例代码如下：</p>
+<pre><code>ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
+scheduledThreadPool.schedule(new Runnable() {
 
     @Override
-    public void handleMessage(Message msg) {
-      MyActivity activity = mActivity.get();
-      if (activity != null) {
-        // ...
-      }
+    public void run() {
+        System.out.println(&quot;delay 3 seconds&quot;);
     }
-  }
-
-  private final MyHandler mHandler = new MyHandler(this);
-
-  /**
-   + Instances of anonymous classes do not hold an implicit
-   + reference to their outer class when they are &quot;static&quot;.
-   */
-  private static final Runnable sRunnable = new Runnable() {
-      @Override
-      public void run() { /* ... */ }
-  };
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    // Post a message and delay its execution for 10 minutes.
-    mHandler.postDelayed(sRunnable, 1000 * 60 * 10);
-    // Go back to the previous Activity.
-    finish();
-  }
-}
-</code></pre><p>最后在Activity onDestroy的时候可以进行一些清理工作。</p>
-<pre><code>public void onDestroy() {  
-    mHandler.removeMessages(MESSAGE_1);  
-    mHandler.removeMessages(MESSAGE_2);  
-    mHandler.removeMessages(MESSAGE_3);  
-    mHandler.removeCallbacks(mRunnable); 
-
-    //mHandler.removeCallbacksAndMessages(null);   
-}     
-</code></pre><h2 id="3-AsyncTask造成的内存泄漏"><a href="#3-AsyncTask造成的内存泄漏" class="headerlink" title="3 AsyncTask造成的内存泄漏"></a>3 AsyncTask造成的内存泄漏</h2><p>如下代码所示：</p>
-<pre><code>public class MyActivity extends Activity {  
-    public void onCreate(Bundle savedInstanceState) {  
-        super.onCreate(savedInstanceState);  
-        setContentView(R.layout.activity_main);  
-        mMyAsyncTask = new MyAsyncTask();
-        mMyAsyncTask.execute();
+}, 3, TimeUnit.SECONDS);
+</code></pre><p>表示延迟3秒执行。</p>
+<p>定期执行示例代码如下：</p>
+<pre><code>scheduledThreadPool.scheduleAtFixedRate(new Runnable() {
+    @Override
+    public void run() {
+        System.out.println(&quot;delay 1 seconds, and excute every 3 seconds&quot;);
     }
+}, 1, 3, TimeUnit.SECONDS);
+</code></pre><p>表示延迟1秒后每3秒执行一次。<br>ScheduledExecutorService比Timer更安全，功能更强大。<br>比较两者Timer缺陷主要如下:<br>1.Timer在执行定时任务时只会创建一个线程，如果存在多个任务且任务时间较长，那么其它任务并不能够准时执行。<br>2.由某个任务抛出异常，导致其余任务不能正常执行，而ScheduledExecutorService是线程池任务互不影响。<br>3.Timer执行周期任务时依赖系统时间，而ScheduledExecutorService基于时间的延迟，不会由于系统时间的改变发生执行变化。</p>
+<p><li>(4).newSingleThreadExecutor </li><br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。示例代码如下：</p>
+<pre><code>ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+for (int i = 0; i &lt; 10; i++) {
+    final int index = i;
+    singleThreadExecutor.execute(new Runnable() {
 
-    private class MyAsyncTask extends  AsyncTask&lt;Void, Void, String&gt;{
         @Override
-        protected String doInBackground(Void... params){
-            return str;
+        public void run() {
+            try {
+                System.out.println(index);
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-            @Override
-        protected void onPostExecute(String result){
-            ...doSomething
+    });
+}
+</code></pre><p>结果依次输出，相当于顺序执行各个任务。<br>现行大多数GUI程序都是单线程的。Android中单线程可用于数据库操作，文件操作，应用批量安装，应用批量删除等不适合并发但可能IO阻塞性及影响UI线程响应的操作。</p>
+<h2 id="2-数据库的优化"><a href="#2-数据库的优化" class="headerlink" title="2. 数据库的优化"></a>2. 数据库的优化</h2><h3 id="2-1-索引"><a href="#2-1-索引" class="headerlink" title="2.1 索引"></a>2.1 索引</h3><p>数据库中索引可以帮助快速找到数据，而不用全表扫描，合适的索引可以大大提高数据库查询的效率。缺点是索引的创建和维护存在消耗，索引会占用物理空间，且随着数据量的增加而增加，对增加删除性能也会有所影响。</p>
+<h3 id="2-2-使用事务"><a href="#2-2-使用事务" class="headerlink" title="2.2 使用事务"></a>2.2 使用事务</h3><p>Sqlite默认会为每个插入、更新操作创建一个事务，并且在每次插入、更新后立即提交。这样如果连续插入100次数据实际是创建事务-&gt;执行语句-&gt;提交这个过程被重复执行了100次。如果我们显示的创建事务-&gt;执行100条语句-&gt;提交会使得这个创建事务和提交这个过程只做一次，通过这种一次性事务可以使得性能大幅提升。尤其当数据库位于sd卡时，时间上能节省两个数量级左右。</p>
+<pre><code>public void insertWithOneTransaction() {
+    SQLiteDatabase db = sqliteOpenHelper.getWritableDatabase();
+    // Begins a transaction
+    db.beginTransaction();
+    try {
+        // your sqls
+        for (int i = 0; i &lt; 100; i++) {
+            db.insert(yourTableName, null, value);
         }
+
+        // marks the current transaction as successful
+        db.setTransactionSuccessful();
+    } catch (Exception e) {
+        // process it
+        e.printStackTrace();
+    } finally {
+        // end a transaction
+        db.endTransaction();
     }
-}     
-</code></pre><h3 id="3-1-原因"><a href="#3-1-原因" class="headerlink" title="3.1 原因"></a>3.1 原因</h3><p>Android开发中，AsyncTask可以替代Thread和handler来发送请求更新ui，但实际使用中AsyncTask还是会带来很多问题的。AsyncTask提供了一个cancel(boolean)方法来取消任务，但是它并不能确保AsyncTask马上被停止，AsyncTask会一直执行, 直到doInBackground()方法执行完毕,而后执行onCancelled(Result result) 方法。</p>
-<p>AsyncTask会保留一个对创建了AsyncTask的Activity的引用。如果Activity已经被销毁，AsyncTask的后台线程还在执行，它将继续在内存里保留这个引用，导致Activity无法被回收，引起内存泄露。屏幕旋转或Activity在后台被系统杀掉等情况会导致Activity的重新创建，之前运行的AsyncTask会持有一个之前Activity的引用，这个引用已经无效，这时调用onPostExecute()再去更新界面将不再生效。</p>
-<p>AsyncTask可以支持并行和串行，当想要串行执行时，直接执行execute()方法，如果需要并行执行，则要执行executeOnExecutor(Executor)。</p>
-<h3 id="3-2-解决办法"><a href="#3-2-解决办法" class="headerlink" title="3.2 解决办法"></a>3.2 解决办法</h3><p>同上面2个的解决方案类似。</p>
-<pre><code>public abstract class WeakAsyncTask&lt;Params, Progress, Result, WeakTarget&gt; extends AsyncTask&lt;Params, Progress, Result&gt; { 
-
-    protected WeakReference&lt;WeakTarget&gt; mTarget; 
-
-    public WeakAsyncTask(WeakTarget target) { 
-        mTarget = new WeakReference&lt;WeakTarget&gt;(target); 
-    } 
-
-    @Override 
-    protected final void onPreExecute() { 
-        final WeakTarget target = mTarget.get(); 
-        if (target != null) { 
-            this.onPreExecute(target); 
-        } 
-    } 
-
-    @Override 
-    protected final Result doInBackground(Params... params) { 
-        final WeakTarget target = mTarget.get(); 
-        if (target != null) { 
-            return this.doInBackground(target, params); 
-        } else { 
-            return null; 
-        } 
-    } 
-
-    @Override 
-    protected final void onPostExecute(Result result) { 
-        final WeakTarget target = mTarget.get(); 
-        if (target != null) { 
-            this.onPostExecute(target, result); 
-        } 
-    } 
-
-    protected void onPreExecute(WeakTarget target) { 
-        // Nodefaultaction 
-    } 
-
-    protected abstract Result doInBackground(WeakTarget target, 
-            Params... params); 
-
-    protected void onPostExecute(WeakTarget target, Result result) { 
-        // Nodefaultaction 
-    } 
-} 
-</code></pre><h2 id="4-其它的内存泄漏情况"><a href="#4-其它的内存泄漏情况" class="headerlink" title="4 其它的内存泄漏情况"></a>4 其它的内存泄漏情况</h2><h3 id="4-1-原因"><a href="#4-1-原因" class="headerlink" title="4.1 原因"></a>4.1 原因</h3><li>1.集合中对象没清理造成的内存泄露</li><br><li>2.资源对象没关闭造成的内存泄露(Cursor，File等)</li><br><li>3.Bitmap对象在不使用时,我们应该先调用recycle()释放内存，然后才它设置为null。</li><br><li>4.注册某个对象后未反注册（广播，观察者等）</li>
-
-<h3 id="4-2-解决办法"><a href="#4-2-解决办法" class="headerlink" title="4.2 解决办法"></a>4.2 解决办法</h3><p>对于一些反注册和清理工作还是要在编码的时候细心，而例如一些handler,Thread造成的内存问题通过合理的修改对象引用类型来解决。</p>
-<p>引用分为四种级别，这四种级别由高到低依次为：强引用&gt;软引用&gt;弱引用&gt;虚引用。<br>强引用（strong reference）<br>如：Object object=new Object（），object就是一个强引用了。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。<br>软引用（SoftReference）<br>只有内存不够时才回收,常用于缓存；当内存达到一个阀值，GC就会去回收它；<br>弱引用（WeakReference）<br>弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它 所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。<br>虚引用（PhantomReference）<br>“虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收。  </p>
+}
+</code></pre><h3 id="2-3-使用事务"><a href="#2-3-使用事务" class="headerlink" title="2.3 使用事务"></a>2.3 使用事务</h3><p>(1) 语句的拼接使用StringBuilder代替String<br>这个就不多说了，简单的string相加会导致创建多个临时对象消耗性能。StringBuilder的空间预分配性能好得多。如果你对字符串的长度有大致了解，如100字符左右，可以直接new StringBuilder(128)指定初始大小，减少空间不够时的再次分配。</p>
+<p>(2) 查询时返回更少的结果集及更少的字段。<br>查询时只取需要的字段和结果集，更多的结果集会消耗更多的时间及内存，更多的字段会导致更多的内存消耗。</p>
+<p>(3) 少用cursor.getColumnIndex<br>根据性能调优过程中的观察cursor.getColumnIndex的时间消耗跟cursor.getInt相差无几。可以在建表的时候用static变量记住某列的index，直接调用相应index而不是每次查询。</p>
 </span>
       
     </div>
@@ -492,17 +403,13 @@ public class MyActivity extends Activity {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/01/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2016/03/02/安卓内存溢出的情形与解决方案/" rel="next" title="安卓内存泄漏与解决方案">
+                <i class="fa fa-chevron-left"></i> 安卓内存泄漏与解决方案
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/02/性能优化/" rel="prev" title="性能优化">
-                性能优化 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -527,8 +434,8 @@ public class MyActivity extends Activity {
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/03/02/安卓内存溢出的情形与解决方案/"
-                   data-title="安卓内存泄漏与解决方案" data-url="http://yoursite.com/2016/03/02/安卓内存溢出的情形与解决方案/">
+              <div class="ds-thread" data-thread-key="2016/03/02/性能优化/"
+                   data-title="性能优化" data-url="http://yoursite.com/2016/03/02/性能优化/">
               </div>
             
           </div>
@@ -633,7 +540,7 @@ public class MyActivity extends Activity {
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Thread造成的内存泄漏"><span class="nav-number">1.</span> <span class="nav-text">1 Thread造成的内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-原因"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-解决办法"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 解决办法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Handler造成的内存泄漏"><span class="nav-number">2.</span> <span class="nav-text">2 Handler造成的内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-原因"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-解决办法"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 解决办法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-AsyncTask造成的内存泄漏"><span class="nav-number">3.</span> <span class="nav-text">3 AsyncTask造成的内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-原因"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-解决办法"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 解决办法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-其它的内存泄漏情况"><span class="nav-number">4.</span> <span class="nav-text">4 其它的内存泄漏情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-原因"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-解决办法"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 解决办法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-线程的优化"><span class="nav-number">1.</span> <span class="nav-text">1. 线程的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据库的优化"><span class="nav-number">2.</span> <span class="nav-text">2. 数据库的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-索引"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-使用事务"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 使用事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-使用事务"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 使用事务</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
