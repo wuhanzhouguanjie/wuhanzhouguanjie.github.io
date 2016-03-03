@@ -46,21 +46,21 @@
 
 
 <meta name="description" content="参考自Trinea 性能优化系列总篇
-1. 线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
-Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线">
+线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
+Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="性能优化">
 <meta property="og:url" content="http://yoursite.com/2016/03/02/性能优化/index.html">
 <meta property="og:site_name" content="Muffin">
 <meta property="og:description" content="参考自Trinea 性能优化系列总篇
-1. 线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
-Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线">
-<meta property="og:updated_time" content="2016-03-02T07:50:27.534Z">
+线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
+Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。n">
+<meta property="og:updated_time" content="2016-03-03T09:22:25.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能优化">
 <meta name="twitter:description" content="参考自Trinea 性能优化系列总篇
-1. 线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
-Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线">
+线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
+Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。n">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -284,7 +284,7 @@ Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建
 
       
         <span itemprop="articleBody"><p>参考自<a href="http://www.trinea.cn/android/performance/" target="_blank" rel="external">Trinea 性能优化系列总篇</a></p>
-<h2 id="1-线程的优化"><a href="#1-线程的优化" class="headerlink" title="1. 线程的优化"></a>1. 线程的优化</h2><p>由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。</p>
+<h2 id="线程的优化"><a href="#线程的优化" class="headerlink" title="线程的优化"></a>线程的优化</h2><p>由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。</p>
 <p>Java通过Executors提供四种线程池，分别为：<br>newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。<br>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
 <p><li>(1).newCachedThreadPool </li><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。示例代码如下：</p>
 <pre><code>ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
@@ -361,8 +361,8 @@ for (int i = 0; i &lt; 10; i++) {
     });
 }
 </code></pre><p>结果依次输出，相当于顺序执行各个任务。<br>现行大多数GUI程序都是单线程的。Android中单线程可用于数据库操作，文件操作，应用批量安装，应用批量删除等不适合并发但可能IO阻塞性及影响UI线程响应的操作。</p>
-<h2 id="2-数据库的优化"><a href="#2-数据库的优化" class="headerlink" title="2. 数据库的优化"></a>2. 数据库的优化</h2><h3 id="2-1-索引"><a href="#2-1-索引" class="headerlink" title="2.1 索引"></a>2.1 索引</h3><p>数据库中索引可以帮助快速找到数据，而不用全表扫描，合适的索引可以大大提高数据库查询的效率。缺点是索引的创建和维护存在消耗，索引会占用物理空间，且随着数据量的增加而增加，对增加删除性能也会有所影响。</p>
-<h3 id="2-2-使用事务"><a href="#2-2-使用事务" class="headerlink" title="2.2 使用事务"></a>2.2 使用事务</h3><p>Sqlite默认会为每个插入、更新操作创建一个事务，并且在每次插入、更新后立即提交。这样如果连续插入100次数据实际是创建事务-&gt;执行语句-&gt;提交这个过程被重复执行了100次。如果我们显示的创建事务-&gt;执行100条语句-&gt;提交会使得这个创建事务和提交这个过程只做一次，通过这种一次性事务可以使得性能大幅提升。尤其当数据库位于sd卡时，时间上能节省两个数量级左右。</p>
+<h2 id="数据库的优化"><a href="#数据库的优化" class="headerlink" title="数据库的优化"></a>数据库的优化</h2><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>数据库中索引可以帮助快速找到数据，而不用全表扫描，合适的索引可以大大提高数据库查询的效率。缺点是索引的创建和维护存在消耗，索引会占用物理空间，且随着数据量的增加而增加，对增加删除性能也会有所影响。</p>
+<h3 id="使用事务"><a href="#使用事务" class="headerlink" title="使用事务"></a>使用事务</h3><p>Sqlite默认会为每个插入、更新操作创建一个事务，并且在每次插入、更新后立即提交。这样如果连续插入100次数据实际是创建事务-&gt;执行语句-&gt;提交这个过程被重复执行了100次。如果我们显示的创建事务-&gt;执行100条语句-&gt;提交会使得这个创建事务和提交这个过程只做一次，通过这种一次性事务可以使得性能大幅提升。尤其当数据库位于sd卡时，时间上能节省两个数量级左右。</p>
 <pre><code>public void insertWithOneTransaction() {
     SQLiteDatabase db = sqliteOpenHelper.getWritableDatabase();
     // Begins a transaction
@@ -383,7 +383,7 @@ for (int i = 0; i &lt; 10; i++) {
         db.endTransaction();
     }
 }
-</code></pre><h3 id="2-3-使用事务"><a href="#2-3-使用事务" class="headerlink" title="2.3 使用事务"></a>2.3 使用事务</h3><p>(1) 语句的拼接使用StringBuilder代替String<br>这个就不多说了，简单的string相加会导致创建多个临时对象消耗性能。StringBuilder的空间预分配性能好得多。如果你对字符串的长度有大致了解，如100字符左右，可以直接new StringBuilder(128)指定初始大小，减少空间不够时的再次分配。</p>
+</code></pre><h3 id="使用事务-1"><a href="#使用事务-1" class="headerlink" title="使用事务"></a>使用事务</h3><p>(1) 语句的拼接使用StringBuilder代替String<br>这个就不多说了，简单的string相加会导致创建多个临时对象消耗性能。StringBuilder的空间预分配性能好得多。如果你对字符串的长度有大致了解，如100字符左右，可以直接new StringBuilder(128)指定初始大小，减少空间不够时的再次分配。</p>
 <p>(2) 查询时返回更少的结果集及更少的字段。<br>查询时只取需要的字段和结果集，更多的结果集会消耗更多的时间及内存，更多的字段会导致更多的内存消耗。</p>
 <p>(3) 少用cursor.getColumnIndex<br>根据性能调优过程中的观察cursor.getColumnIndex的时间消耗跟cursor.getInt相差无几。可以在建表的时候用static变量记住某列的index，直接调用相应index而不是每次查询。</p>
 </span>
@@ -544,7 +544,7 @@ for (int i = 0; i &lt; 10; i++) {
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-线程的优化"><span class="nav-number">1.</span> <span class="nav-text">1. 线程的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据库的优化"><span class="nav-number">2.</span> <span class="nav-text">2. 数据库的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-索引"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-使用事务"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 使用事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-使用事务"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 使用事务</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的优化"><span class="nav-number">1.</span> <span class="nav-text">线程的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的优化"><span class="nav-number">2.</span> <span class="nav-text">数据库的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">2.1.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用事务"><span class="nav-number">2.2.</span> <span class="nav-text">使用事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用事务-1"><span class="nav-number">2.3.</span> <span class="nav-text">使用事务</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

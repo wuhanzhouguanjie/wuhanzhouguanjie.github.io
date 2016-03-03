@@ -283,10 +283,10 @@
         
           <span itemprop="articleBody">
             
-              <h2 id="1-final与static"><a href="#1-final与static" class="headerlink" title="1.final与static"></a>1.final与static</h2><h3 id="1-1-final的使用"><a href="#1-1-final的使用" class="headerlink" title="1.1 final的使用"></a>1.1 final的使用</h3><p>1.fianl变量，即该成员被修饰为常量，意味着不可修改。<br>2.final类，以指示不能扩展该类（不能有子类）。<br>3.final方法，指该方法不可被继承成员重新定义。<br>4.final类的引用、数组的时候，事实上指向的对象的数据依然可以被修改。不能修改的是本身的引用值。<br>5.final参数，对象变量传递的是其引用，为防止调用过程中无意的更改而修饰。</p>
-<h3 id="1-2-static的使用"><a href="#1-2-static的使用" class="headerlink" title="1.2 static的使用"></a>1.2 static的使用</h3><p><b> 被static修饰的成员变量和成员方法独立于该类的任何对象。它不依赖类特定的实例，被类的所有实例共享。</b><br>1.static变量，JVM只为静态分配一次内存，在加载类的过程中完成静态变量的内存分配，可用类名直接访问。<br>2.static（内部）类可以被其他类实例化和引用。<br>3.static代码块，static代码块也叫静态代码块，是在类中独立于类成员的static语句块，可以有多个，位置可以随便放，它不在任何的方法体内，JVM加载类时会执行这些静态的代码块，如果static代码块有多个则顺序执行。</p>
-<h2 id="2-Java反射机制"><a href="#2-Java反射机制" class="headerlink" title="2.Java反射机制"></a>2.Java反射机制</h2><p>反射机制的优点就是可以实现动态创建对象和编译。</p>
-<h3 id="2-1-Constructor类"><a href="#2-1-Constructor类" class="headerlink" title="2.1 Constructor类"></a>2.1 Constructor类</h3><p>Constructor类可以帮助我们获得类的构造方法。<br>代码如下：<br>User类</p>
+              <h2 id="final与static"><a href="#final与static" class="headerlink" title="final与static"></a>final与static</h2><h3 id="final的使用"><a href="#final的使用" class="headerlink" title="final的使用"></a>final的使用</h3><p>1.fianl变量，即该成员被修饰为常量，意味着不可修改。<br>2.final类，以指示不能扩展该类（不能有子类）。<br>3.final方法，指该方法不可被继承成员重新定义。<br>4.final类的引用、数组的时候，事实上指向的对象的数据依然可以被修改。不能修改的是本身的引用值。<br>5.final参数，对象变量传递的是其引用，为防止调用过程中无意的更改而修饰。</p>
+<h3 id="static的使用"><a href="#static的使用" class="headerlink" title="static的使用"></a>static的使用</h3><p><b> 被static修饰的成员变量和成员方法独立于该类的任何对象。它不依赖类特定的实例，被类的所有实例共享。</b><br>1.static变量，JVM只为静态分配一次内存，在加载类的过程中完成静态变量的内存分配，可用类名直接访问。<br>2.static（内部）类可以被其他类实例化和引用。<br>3.static代码块，static代码块也叫静态代码块，是在类中独立于类成员的static语句块，可以有多个，位置可以随便放，它不在任何的方法体内，JVM加载类时会执行这些静态的代码块，如果static代码块有多个则顺序执行。</p>
+<h2 id="Java反射机制"><a href="#Java反射机制" class="headerlink" title="Java反射机制"></a>Java反射机制</h2><p>反射机制的优点就是可以实现动态创建对象和编译。</p>
+<h3 id="Constructor类"><a href="#Constructor类" class="headerlink" title="Constructor类"></a>Constructor类</h3><p>Constructor类可以帮助我们获得类的构造方法。<br>代码如下：<br>User类</p>
 <pre><code>public class User {
     private String userName;
     public String passWord;
@@ -305,7 +305,6 @@
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
 }
 </code></pre><p>使用:</p>
 <pre><code>Class cls = Class.forName(&quot;com.zgj.myapplication.User&quot;);//创建class对象
@@ -329,7 +328,7 @@ for(int i = 0; i &lt; c2.length; i++) {
 Constructor c3 = cls.getDeclaredConstructor(params1);
 Log.e(TAG,&quot;ALL &quot; + c3);
 </code></pre><p>log输出如下:<br><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/反射Constructor.png"></p>
-<h3 id="2-2-Method类"><a href="#2-2-Method类" class="headerlink" title="2.2 Method类"></a>2.2 Method类</h3><p>Method类可以帮助我们获得类的方法。</p>
+<h3 id="Method类"><a href="#Method类" class="headerlink" title="Method类"></a>Method类</h3><p>Method类可以帮助我们获得类的方法。</p>
 <p>根据方法名和参数列表获取公共方法:</p>
 <pre><code>Class[] params2 = new Class[]{};
 Method method = cls.getMethod(&quot;getUserName&quot;,params2);
@@ -346,7 +345,7 @@ for(int i = 0; i &lt; method1.length; i++) {
 Method method = cls.getDeclaredMethod(&quot;test&quot;, params2);
 method.setAccessible(true);
 String str = (String)method.invoke(obj, new Object[]{20,&quot;zgj&quot;});
-</code></pre><h3 id="2-3-Field类"><a href="#2-3-Field类" class="headerlink" title="2.3 Field类"></a>2.3 Field类</h3><p>获得指定name的域Field对象，name为域变量名（必须为public修饰）,可以为该Class或它的接口域：</p>
+</code></pre><h3 id="Field类"><a href="#Field类" class="headerlink" title="Field类"></a>Field类</h3><p>获得指定name的域Field对象，name为域变量名（必须为public修饰）,可以为该Class或它的接口域：</p>
 <pre><code>Field field = cls.getField(&quot;passWord&quot;);
 Log.e(TAG,&quot;field &quot; + field);
 </code></pre><p>获得所有公有修饰的域对象数组：</p>
@@ -364,21 +363,21 @@ field.setAccessible(true);
 Log.e(TAG, &quot;userName=&quot; + field.get(user));
 field.set(user, &quot;用户名改了&quot;);
 Log.e(TAG, &quot;userName=&quot; + user.getUserName());
-</code></pre><h2 id="3-Java常用数据结构"><a href="#3-Java常用数据结构" class="headerlink" title="3 Java常用数据结构"></a>3 Java常用数据结构</h2><p>类层次关系如下：<br>Collection﻿<br>├List<br>│├LinkedList<br>│├ArrayList<br>│└Vector<br>│　└Stack<br>└Set<br>Map<br>├Hashtable<br>├HashMap<br>└WeakHashMap</p>
-<h3 id="3-1-Collection接口"><a href="#3-1-Collection接口" class="headerlink" title="3.1 Collection接口"></a>3.1 Collection接口</h3><p>Collection是最基本的集合接口，一个Collection代表一组Object，即Collection的元素（Elements）。一些 Collection允许相同的元素而另一些不行。一些能排序而另一些不行。Java SDK不提供直接继承自Collection的类，Java SDK提供的类都是继承自Collection的“子接口”如List和Set。<br>　　所有实现Collection接口的类都必须提供两个标准的构造函数：无参数的构造函数用于创建一个空的Collection，有一个 Collection参数的构造函数用于创建一个新的Collection，这个新的Collection与传入的Collection有相同的元素。后一个构造函数允许用户复制一个Collection。<br>　　如何遍历Collection中的每一个元素？不论Collection的实际类型如何，它都支持一个iterator()的方法，该方法返回一个迭代子，使用该迭代子即可逐一访问Collection中每一个元素。典型的用法如下：</p>
+</code></pre><h2 id="Java常用数据结构"><a href="#Java常用数据结构" class="headerlink" title="Java常用数据结构"></a>Java常用数据结构</h2><p>类层次关系如下：<br>Collection﻿<br>├List<br>│├LinkedList<br>│├ArrayList<br>│└Vector<br>│　└Stack<br>└Set<br>Map<br>├Hashtable<br>├HashMap<br>└WeakHashMap</p>
+<h3 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h3><p>Collection是最基本的集合接口，一个Collection代表一组Object，即Collection的元素（Elements）。一些 Collection允许相同的元素而另一些不行。一些能排序而另一些不行。Java SDK不提供直接继承自Collection的类，Java SDK提供的类都是继承自Collection的“子接口”如List和Set。<br>　　所有实现Collection接口的类都必须提供两个标准的构造函数：无参数的构造函数用于创建一个空的Collection，有一个 Collection参数的构造函数用于创建一个新的Collection，这个新的Collection与传入的Collection有相同的元素。后一个构造函数允许用户复制一个Collection。<br>　　如何遍历Collection中的每一个元素？不论Collection的实际类型如何，它都支持一个iterator()的方法，该方法返回一个迭代子，使用该迭代子即可逐一访问Collection中每一个元素。典型的用法如下：</p>
 <pre><code>// 获得一个迭代子
 Iterator it = collection.iterator(); 
 while(it.hasNext()) {
     Object obj = it.next(); 
 }
-</code></pre><h3 id="3-2-List"><a href="#3-2-List" class="headerlink" title="3.2 List"></a>3.2 List</h3><p>有序(元素存入集合的顺序和取出的顺序一致)，元素都有索引。元素可以重复。</p>
+</code></pre><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>有序(元素存入集合的顺序和取出的顺序一致)，元素都有索引。元素可以重复。</p>
 <p><li>ArrayList</li><br>底层的数据结构是数组，线程不同步，ArrayList替代了Vector，查询元素的速度非常快。</p>
 <p><li>LinkedList</li><br>底层的数据结构是链表，线程不同步，增删元素的速度非常快。</p>
 <p><li>Vector</li><br>底层的数据结构是数组，线程同步的，但是Vector无论查询还是增删元素都比较慢。</p>
 <p><li>Stack</li><br>继承自Vector，实现一个后进先出的堆栈。</p>
 <p>可变长度数组的原理：当元素超出数组长度，会产生一个新数组，将原数组的数据复制到新数组中，再将新的元素添加到新数组中。ArrayList是按照原数组的50%延长。构造一个初始容量为10的空列表。Vector是按照原数组的100%延长。</p>
-<h3 id="3-3-Set"><a href="#3-3-Set" class="headerlink" title="3.3 Set"></a>3.3 Set</h3><p>Set是一种不包含重复的元素的Collection，即任意的两个元素e1和e2都有e1.equals(e2)=false，Set最多有一个null元素。</p>
-<h3 id="3-4-Map"><a href="#3-4-Map" class="headerlink" title="3.4 Map"></a>3.4 Map</h3><p>Map没有继承Collection接口，Map提供key到value的映射。一个Map中不能包含相同的key，每个key只能映射一个 value。Map接口提供3种集合的视图，Map的内容可以被当作一组key集合，一组value集合，或者一组key-value映射。</p>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>Set是一种不包含重复的元素的Collection，即任意的两个元素e1和e2都有e1.equals(e2)=false，Set最多有一个null元素。</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>Map没有继承Collection接口，Map提供key到value的映射。一个Map中不能包含相同的key，每个key只能映射一个 value。Map接口提供3种集合的视图，Map的内容可以被当作一组key集合，一组value集合，或者一组key-value映射。</p>
 <p><li>Hashtable</li><br>Hashtable继承Map接口，实现一个key-value映射的哈希表。任何非空（non-null）的对象都可作为key或者value。添加数据使用put(key, value)，取出数据使用get(key)，这两个基本操作的时间开销为常数。<br>Hashtable通过initial capacity和load factor两个参数调整性能。通常缺省的load factor 0.75较好地实现了时间和空间的均衡。增大load factor可以节省空间但相应的查找时间将增大，这会影响像get和put这样的操作。<br>Hashtable是同步的。</p>
 <p><li>HashMap</li><br>HashMap和Hashtable类似，不同之处在于HashMap是非同步的，并且允许null，即null value和null key。，但是将HashMap视为Collection时（values()方法可返回Collection），其迭代子操作时间开销和HashMap 的容量成比例。因此，如果迭代操作的性能相当重要的话，不要将HashMap的初始化容量设得过高，或者load factor过低。</p>
 <p><li>WeakHashMap</li><br>WeakHashMap是一种改进的HashMap，它对key实行“弱引用”，如果一个key不再被外部所引用，那么该key可以被GC回收。</p>
@@ -482,7 +481,7 @@ while(it.hasNext()) {
           <span itemprop="articleBody">
             
               <p>参考自<a href="http://www.trinea.cn/android/performance/" target="_blank" rel="external">Trinea 性能优化系列总篇</a></p>
-<h2 id="1-线程的优化"><a href="#1-线程的优化" class="headerlink" title="1. 线程的优化"></a>1. 线程的优化</h2><p>由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。</p>
+<h2 id="线程的优化"><a href="#线程的优化" class="headerlink" title="线程的优化"></a>线程的优化</h2><p>由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。</p>
 <p>Java通过Executors提供四种线程池，分别为：<br>newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。<br>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
 <p><li>(1).newCachedThreadPool </li><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。示例代码如下：</p>
 <pre><code>ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
@@ -559,8 +558,8 @@ for (int i = 0; i &lt; 10; i++) {
     });
 }
 </code></pre><p>结果依次输出，相当于顺序执行各个任务。<br>现行大多数GUI程序都是单线程的。Android中单线程可用于数据库操作，文件操作，应用批量安装，应用批量删除等不适合并发但可能IO阻塞性及影响UI线程响应的操作。</p>
-<h2 id="2-数据库的优化"><a href="#2-数据库的优化" class="headerlink" title="2. 数据库的优化"></a>2. 数据库的优化</h2><h3 id="2-1-索引"><a href="#2-1-索引" class="headerlink" title="2.1 索引"></a>2.1 索引</h3><p>数据库中索引可以帮助快速找到数据，而不用全表扫描，合适的索引可以大大提高数据库查询的效率。缺点是索引的创建和维护存在消耗，索引会占用物理空间，且随着数据量的增加而增加，对增加删除性能也会有所影响。</p>
-<h3 id="2-2-使用事务"><a href="#2-2-使用事务" class="headerlink" title="2.2 使用事务"></a>2.2 使用事务</h3><p>Sqlite默认会为每个插入、更新操作创建一个事务，并且在每次插入、更新后立即提交。这样如果连续插入100次数据实际是创建事务-&gt;执行语句-&gt;提交这个过程被重复执行了100次。如果我们显示的创建事务-&gt;执行100条语句-&gt;提交会使得这个创建事务和提交这个过程只做一次，通过这种一次性事务可以使得性能大幅提升。尤其当数据库位于sd卡时，时间上能节省两个数量级左右。</p>
+<h2 id="数据库的优化"><a href="#数据库的优化" class="headerlink" title="数据库的优化"></a>数据库的优化</h2><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>数据库中索引可以帮助快速找到数据，而不用全表扫描，合适的索引可以大大提高数据库查询的效率。缺点是索引的创建和维护存在消耗，索引会占用物理空间，且随着数据量的增加而增加，对增加删除性能也会有所影响。</p>
+<h3 id="使用事务"><a href="#使用事务" class="headerlink" title="使用事务"></a>使用事务</h3><p>Sqlite默认会为每个插入、更新操作创建一个事务，并且在每次插入、更新后立即提交。这样如果连续插入100次数据实际是创建事务-&gt;执行语句-&gt;提交这个过程被重复执行了100次。如果我们显示的创建事务-&gt;执行100条语句-&gt;提交会使得这个创建事务和提交这个过程只做一次，通过这种一次性事务可以使得性能大幅提升。尤其当数据库位于sd卡时，时间上能节省两个数量级左右。</p>
 <pre><code>public void insertWithOneTransaction() {
     SQLiteDatabase db = sqliteOpenHelper.getWritableDatabase();
     // Begins a transaction
@@ -581,7 +580,7 @@ for (int i = 0; i &lt; 10; i++) {
         db.endTransaction();
     }
 }
-</code></pre><h3 id="2-3-使用事务"><a href="#2-3-使用事务" class="headerlink" title="2.3 使用事务"></a>2.3 使用事务</h3><p>(1) 语句的拼接使用StringBuilder代替String<br>这个就不多说了，简单的string相加会导致创建多个临时对象消耗性能。StringBuilder的空间预分配性能好得多。如果你对字符串的长度有大致了解，如100字符左右，可以直接new StringBuilder(128)指定初始大小，减少空间不够时的再次分配。</p>
+</code></pre><h3 id="使用事务-1"><a href="#使用事务-1" class="headerlink" title="使用事务"></a>使用事务</h3><p>(1) 语句的拼接使用StringBuilder代替String<br>这个就不多说了，简单的string相加会导致创建多个临时对象消耗性能。StringBuilder的空间预分配性能好得多。如果你对字符串的长度有大致了解，如100字符左右，可以直接new StringBuilder(128)指定初始大小，减少空间不够时的再次分配。</p>
 <p>(2) 查询时返回更少的结果集及更少的字段。<br>查询时只取需要的字段和结果集，更多的结果集会消耗更多的时间及内存，更多的字段会导致更多的内存消耗。</p>
 <p>(3) 少用cursor.getColumnIndex<br>根据性能调优过程中的观察cursor.getColumnIndex的时间消耗跟cursor.getInt相差无几。可以在建表的时候用static变量记住某列的index，直接调用相应index而不是每次查询。</p>
 
@@ -682,7 +681,7 @@ for (int i = 0; i &lt; 10; i++) {
           <span itemprop="articleBody">
             
               <p><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/titanic.jpg"></p>
-<h2 id="1-Thread造成的内存泄漏"><a href="#1-Thread造成的内存泄漏" class="headerlink" title="1 Thread造成的内存泄漏"></a>1 Thread造成的内存泄漏</h2><p>如下代码所示：</p>
+<h2 id="Thread造成的内存泄漏"><a href="#Thread造成的内存泄漏" class="headerlink" title="Thread造成的内存泄漏"></a>Thread造成的内存泄漏</h2><p>如下代码所示：</p>
 <pre><code>public class MyActivity extends Activity {  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -698,8 +697,8 @@ for (int i = 0; i &lt; 10; i++) {
         }  
     }
 }     
-</code></pre><h3 id="1-1-原因"><a href="#1-1-原因" class="headerlink" title="1.1 原因"></a>1.1 原因</h3><p>假设MyThread的run函数是一个很费时的操作，当我们开启该线程后，将设备的横屏变为了竖屏,一般情况下当屏幕转换时会重新创建Activity，按照我们的想法，老的Activity应该会被销毁才对，然而事实上并非如此。<br>由于我们的线程是Activity的内部类，所以MyThread中保存了Activity的一个引用<b>（Java中，非静态内部类和匿名类都会潜在引用它们所属外部类）</b>。当MyThread的run函数没有结束时，MyThread是不会被销毁的，因此它所引用的老的Activity也不会被销毁，因此就出现了内存泄露的问题。</p>
-<h3 id="1-2-解决办法"><a href="#1-2-解决办法" class="headerlink" title="1.2 解决办法"></a>1.2 解决办法</h3><li>针对非静态内部类会持有外部类引用的问题，考虑将其改为静态内部类，切断Activity对Thread的强引用。</li><br><li>在线程内部采用弱引用保存context，切断Thread对Activity的强引用。</li>
+</code></pre><h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>假设MyThread的run函数是一个很费时的操作，当我们开启该线程后，将设备的横屏变为了竖屏,一般情况下当屏幕转换时会重新创建Activity，按照我们的想法，老的Activity应该会被销毁才对，然而事实上并非如此。<br>由于我们的线程是Activity的内部类，所以MyThread中保存了Activity的一个引用<b>（Java中，非静态内部类和匿名类都会潜在引用它们所属外部类）</b>。当MyThread的run函数没有结束时，MyThread是不会被销毁的，因此它所引用的老的Activity也不会被销毁，因此就出现了内存泄露的问题。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><li>针对非静态内部类会持有外部类引用的问题，考虑将其改为静态内部类，切断Activity对Thread的强引用。</li><br><li>在线程内部采用弱引用保存context，切断Thread对Activity的强引用。</li>
 
 <p>改进代码如下：</p>
 <pre><code>public class MyActivity extends Activity {  
@@ -724,7 +723,7 @@ for (int i = 0; i &lt; 10; i++) {
         }  
     }
 }        
-</code></pre><h2 id="2-Handler造成的内存泄漏"><a href="#2-Handler造成的内存泄漏" class="headerlink" title="2 Handler造成的内存泄漏"></a>2 Handler造成的内存泄漏</h2><p>如下代码所示：</p>
+</code></pre><h2 id="Handler造成的内存泄漏"><a href="#Handler造成的内存泄漏" class="headerlink" title="Handler造成的内存泄漏"></a>Handler造成的内存泄漏</h2><p>如下代码所示：</p>
 <pre><code>public class MyActivity extends Activity {  
     private final Handler mHandler = new Handler(){
         @override
@@ -745,8 +744,8 @@ for (int i = 0; i &lt; 10; i++) {
         finish();
     }
 }
-</code></pre><h3 id="2-1-原因"><a href="#2-1-原因" class="headerlink" title="2.1 原因"></a>2.1 原因</h3><p>当Android应用程序启动时，会为该应用程序的主线程创建一个Looper对象。这个Looper对象包含一个简单的消息队列Message Queue，并且能够循环的处理队列中的消息。这些消息包括大多数应用程序framework事件，例如Activity生命周期方法调用、button点击等，这些消息都会被添加到消息队列中并被逐个处理。另外，主线程的Looper对象会伴随该应用程序的整个生命周期。<br>然后，当主线程里，实例化一个Handler对象后，它就会自动与主线程Looper的消息队列关联起来。所有发送到消息队列的消息Message都会拥有一个对<b>Handler的引用</b>，所以当Looper来处理消息时，会据此回调handleMessage方法来处理消息。<br>当activity finish的时候由于该消息会一直保存在主线程的消息队列十分钟，又由于该消息持有对handler的引用，而handler又持有其外部类activity的引用，因此activity迟迟不能被回收造成内存泄漏。</p>
-<h3 id="2-2-解决办法"><a href="#2-2-解决办法" class="headerlink" title="2.2 解决办法"></a>2.2 解决办法</h3><p>和Thread内存泄漏的解决办法一直，采用static类加弱引用的方法解决。</p>
+</code></pre><h3 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h3><p>当Android应用程序启动时，会为该应用程序的主线程创建一个Looper对象。这个Looper对象包含一个简单的消息队列Message Queue，并且能够循环的处理队列中的消息。这些消息包括大多数应用程序framework事件，例如Activity生命周期方法调用、button点击等，这些消息都会被添加到消息队列中并被逐个处理。另外，主线程的Looper对象会伴随该应用程序的整个生命周期。<br>然后，当主线程里，实例化一个Handler对象后，它就会自动与主线程Looper的消息队列关联起来。所有发送到消息队列的消息Message都会拥有一个对<b>Handler的引用</b>，所以当Looper来处理消息时，会据此回调handleMessage方法来处理消息。<br>当activity finish的时候由于该消息会一直保存在主线程的消息队列十分钟，又由于该消息持有对handler的引用，而handler又持有其外部类activity的引用，因此activity迟迟不能被回收造成内存泄漏。</p>
+<h3 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h3><p>和Thread内存泄漏的解决办法一直，采用static类加弱引用的方法解决。</p>
 <pre><code>public class MyActivity extends Activity {
   private static class MyHandler extends Handler {
     private final WeakReference&lt;MyActivity&gt; mActivity;
@@ -792,7 +791,7 @@ for (int i = 0; i &lt; 10; i++) {
 
     //mHandler.removeCallbacksAndMessages(null);   
 }     
-</code></pre><h2 id="3-AsyncTask造成的内存泄漏"><a href="#3-AsyncTask造成的内存泄漏" class="headerlink" title="3 AsyncTask造成的内存泄漏"></a>3 AsyncTask造成的内存泄漏</h2><p>如下代码所示：</p>
+</code></pre><h2 id="AsyncTask造成的内存泄漏"><a href="#AsyncTask造成的内存泄漏" class="headerlink" title="AsyncTask造成的内存泄漏"></a>AsyncTask造成的内存泄漏</h2><p>如下代码所示：</p>
 <pre><code>public class MyActivity extends Activity {  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -812,10 +811,10 @@ for (int i = 0; i &lt; 10; i++) {
         }
     }
 }     
-</code></pre><h3 id="3-1-原因"><a href="#3-1-原因" class="headerlink" title="3.1 原因"></a>3.1 原因</h3><p>Android开发中，AsyncTask可以替代Thread和handler来发送请求更新ui，但实际使用中AsyncTask还是会带来很多问题的。AsyncTask提供了一个cancel(boolean)方法来取消任务，但是它并不能确保AsyncTask马上被停止，AsyncTask会一直执行, 直到doInBackground()方法执行完毕,而后执行onCancelled(Result result) 方法。</p>
+</code></pre><h3 id="原因-2"><a href="#原因-2" class="headerlink" title="原因"></a>原因</h3><p>Android开发中，AsyncTask可以替代Thread和handler来发送请求更新ui，但实际使用中AsyncTask还是会带来很多问题的。AsyncTask提供了一个cancel(boolean)方法来取消任务，但是它并不能确保AsyncTask马上被停止，AsyncTask会一直执行, 直到doInBackground()方法执行完毕,而后执行onCancelled(Result result) 方法。</p>
 <p>AsyncTask会保留一个对创建了AsyncTask的Activity的引用。如果Activity已经被销毁，AsyncTask的后台线程还在执行，它将继续在内存里保留这个引用，导致Activity无法被回收，引起内存泄露。屏幕旋转或Activity在后台被系统杀掉等情况会导致Activity的重新创建，之前运行的AsyncTask会持有一个之前Activity的引用，这个引用已经无效，这时调用onPostExecute()再去更新界面将不再生效。</p>
 <p>AsyncTask可以支持并行和串行，当想要串行执行时，直接执行execute()方法，如果需要并行执行，则要执行executeOnExecutor(Executor)。</p>
-<h3 id="3-2-解决办法"><a href="#3-2-解决办法" class="headerlink" title="3.2 解决办法"></a>3.2 解决办法</h3><p>同上面2个的解决方案类似。</p>
+<h3 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法"></a>解决办法</h3><p>同上面2个的解决方案类似。</p>
 <pre><code>public abstract class WeakAsyncTask&lt;Params, Progress, Result, WeakTarget&gt; extends AsyncTask&lt;Params, Progress, Result&gt; { 
 
     protected WeakReference&lt;WeakTarget&gt; mTarget; 
@@ -861,9 +860,9 @@ for (int i = 0; i &lt; 10; i++) {
         // Nodefaultaction 
     } 
 } 
-</code></pre><h2 id="4-其它的内存泄漏情况"><a href="#4-其它的内存泄漏情况" class="headerlink" title="4 其它的内存泄漏情况"></a>4 其它的内存泄漏情况</h2><h3 id="4-1-原因"><a href="#4-1-原因" class="headerlink" title="4.1 原因"></a>4.1 原因</h3><li>1.集合中对象没清理造成的内存泄露</li><br><li>2.资源对象没关闭造成的内存泄露(Cursor，File等)</li><br><li>3.Bitmap对象在不使用时,我们应该先调用recycle()释放内存，然后才它设置为null。</li><br><li>4.注册某个对象后未反注册（广播，观察者等）</li>
+</code></pre><h2 id="其它的内存泄漏情况"><a href="#其它的内存泄漏情况" class="headerlink" title="其它的内存泄漏情况"></a>其它的内存泄漏情况</h2><h3 id="原因-3"><a href="#原因-3" class="headerlink" title="原因"></a>原因</h3><li>1.集合中对象没清理造成的内存泄露</li><br><li>2.资源对象没关闭造成的内存泄露(Cursor，File等)</li><br><li>3.Bitmap对象在不使用时,我们应该先调用recycle()释放内存，然后才它设置为null。</li><br><li>4.注册某个对象后未反注册（广播，观察者等）</li>
 
-<h3 id="4-2-解决办法"><a href="#4-2-解决办法" class="headerlink" title="4.2 解决办法"></a>4.2 解决办法</h3><p>对于一些反注册和清理工作还是要在编码的时候细心，而例如一些handler,Thread造成的内存问题通过合理的修改对象引用类型来解决。</p>
+<h3 id="解决办法-3"><a href="#解决办法-3" class="headerlink" title="解决办法"></a>解决办法</h3><p>对于一些反注册和清理工作还是要在编码的时候细心，而例如一些handler,Thread造成的内存问题通过合理的修改对象引用类型来解决。</p>
 <p>引用分为四种级别，这四种级别由高到低依次为：强引用&gt;软引用&gt;弱引用&gt;虚引用。<br>强引用（strong reference）<br>如：Object object=new Object（），object就是一个强引用了。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。<br>软引用（SoftReference）<br>只有内存不够时才回收,常用于缓存；当内存达到一个阀值，GC就会去回收它；<br>弱引用（WeakReference）<br>弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它 所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。<br>虚引用（PhantomReference）<br>“虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收。  </p>
 
             
