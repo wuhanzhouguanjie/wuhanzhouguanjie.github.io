@@ -56,7 +56,7 @@ static的使用">
 <meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/反射Constructor.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/反射Method.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/反射Field.png">
-<meta property="og:updated_time" content="2016-03-04T02:26:29.283Z">
+<meta property="og:updated_time" content="2016-03-04T06:22:26.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java复习">
 <meta name="twitter:description" content="final与staticfinal的使用1.fianl变量，即该成员被修饰为常量，意味着不可修改。2.final类，以指示不能扩展该类（不能有子类）。3.final方法，指该方法不可被继承成员重新定义。4.final类的引用、数组的时候，事实上指向的对象的数据依然可以被修改。不能修改的是本身的引用值。5.final参数，对象变量传递的是其引用，为防止调用过程中无意的更改而修饰。
@@ -400,10 +400,8 @@ while(it.hasNext()) {
         return sSingleton;  
     }  
 }  
-
-
-
-public class Singleton {  
+</code></pre><p>上述代码近乎完美，可以满足几乎所有场合，double-check(DCL)在很大程度上可以满足高并发的需要，尽管如此，它还是有一些小缺点的，问题的关键在于尽管得到了Singleton的正确引用，但是却有可能访问到其成员变量的不正确值</p>
+<pre><code>public class Singleton {  
     private Singleton(){  
     }  
 
@@ -639,8 +637,7 @@ public class Singleton {
        p.setPrice(345f);
     }
 }
-</code></pre><p>待续</p>
-</span>
+</code></pre></span>
       
     </div>
 

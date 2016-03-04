@@ -497,10 +497,8 @@ while(it.hasNext()) {
         return sSingleton;  
     }  
 }  
-
-
-
-public class Singleton {  
+</code></pre><p>上述代码近乎完美，可以满足几乎所有场合，double-check(DCL)在很大程度上可以满足高并发的需要，尽管如此，它还是有一些小缺点的，问题的关键在于尽管得到了Singleton的正确引用，但是却有可能访问到其成员变量的不正确值</p>
+<pre><code>public class Singleton {  
     private Singleton(){  
     }  
 
@@ -736,8 +734,7 @@ public class Singleton {
        p.setPrice(345f);
     }
 }
-</code></pre><p>待续</p>
-
+</code></pre>
             
           </span>
         
