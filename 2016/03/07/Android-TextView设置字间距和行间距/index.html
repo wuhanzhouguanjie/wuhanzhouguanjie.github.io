@@ -45,22 +45,30 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="参考自Trinea 性能优化系列总篇
-线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
-Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。n">
+<meta name="description" content="原文来自http://blog.csdn.net/nsw911439370/article/details/41542861?utm_source=tuicool&amp;amp;utm_medium=referral
+###设置TextView的行间距 
+android:lineSpacingMultiplier=&amp;quot;1.8&amp;quot;  
+###设置字间距需要自定义控件
+import andr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="性能优化">
-<meta property="og:url" content="http://yoursite.com/2016/03/02/性能优化/index.html">
+<meta property="og:title" content="Android TextView设置字间距和行间距">
+<meta property="og:url" content="http://yoursite.com/2016/03/07/Android-TextView设置字间距和行间距/index.html">
 <meta property="og:site_name" content="Muffin">
-<meta property="og:description" content="参考自Trinea 性能优化系列总篇
-线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
-Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。n">
-<meta property="og:updated_time" content="2016-03-04T01:59:35.852Z">
+<meta property="og:description" content="原文来自http://blog.csdn.net/nsw911439370/article/details/41542861?utm_source=tuicool&amp;amp;utm_medium=referral
+###设置TextView的行间距 
+android:lineSpacingMultiplier=&amp;quot;1.8&amp;quot;  
+###设置字间距需要自定义控件
+import andr">
+<meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/1.jpg">
+<meta property="og:updated_time" content="2016-03-07T07:30:15.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="性能优化">
-<meta name="twitter:description" content="参考自Trinea 性能优化系列总篇
-线程的优化由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。
-Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。n">
+<meta name="twitter:title" content="Android TextView设置字间距和行间距">
+<meta name="twitter:description" content="原文来自http://blog.csdn.net/nsw911439370/article/details/41542861?utm_source=tuicool&amp;amp;utm_medium=referral
+###设置TextView的行间距 
+android:lineSpacingMultiplier=&amp;quot;1.8&amp;quot;  
+###设置字间距需要自定义控件
+import andr">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/1.jpg">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +80,7 @@ Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建
 
 
 
-  <title> 性能优化 | Muffin </title>
+  <title> Android TextView设置字间距和行间距 | Muffin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -228,7 +236,7 @@ Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建
             
             
               
-                性能优化
+                Android TextView设置字间距和行间距
               
             
           </h1>
@@ -237,8 +245,8 @@ Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-03-02T14:51:51+08:00" content="2016-03-02">
-              2016-03-02
+            <time itemprop="dateCreated" datetime="2016-03-07T15:23:56+08:00" content="2016-03-07">
+              2016-03-07
             </time>
           </span>
 
@@ -263,8 +271,8 @@ Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/02/性能优化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/性能优化/" itemprop="commentsCount"></span>
+                <a href="/2016/03/07/Android-TextView设置字间距和行间距/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/07/Android-TextView设置字间距和行间距/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -283,109 +291,156 @@ Java通过Executors提供四种线程池，分别为：newCachedThreadPool创建
       
 
       
-        <span itemprop="articleBody"><p>参考自<a href="http://www.trinea.cn/android/performance/" target="_blank" rel="external">Trinea 性能优化系列总篇</a></p>
-<h2 id="线程的优化"><a href="#线程的优化" class="headerlink" title="线程的优化"></a>线程的优化</h2><p>由于每次执行异步任务都去使用new Thread或者new AsynTask新建对象性能比较差，并且缺乏统一的管理，因此考虑用线程池的去管理重用线程的方案比较好。</p>
-<p>Java通过Executors提供四种线程池，分别为：<br>newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。<br>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
-<p><li>(1).CachedThreadPool </li><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。示例代码如下：</p>
-<pre><code>ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
-for (int i = 0; i &lt; 10; i++) {
-    final int index = i;
-    try {
-        Thread.sleep(index * 1000);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
+        <span itemprop="articleBody"><p>原文来自<a href="http://blog.csdn.net/nsw911439370/article/details/41542861?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">http://blog.csdn.net/nsw911439370/article/details/41542861?utm_source=tuicool&amp;utm_medium=referral</a></p>
+<p>###设置TextView的行间距 </p>
+<pre><code>android:lineSpacingMultiplier=&quot;1.8&quot;  
+</code></pre><p>###设置字间距需要自定义控件</p>
+<pre><code>import android.graphics.*;  
+import android.text.TextUtils;  
+import android.util.AttributeSet;  
+import android.widget.TextView;  
 
-    cachedThreadPool.execute(new Runnable() {
+import java.util.regex.Matcher;  
+import java.util.regex.Pattern;  
 
-        @Override
-        public void run() {
-            System.out.println(index);
-        }
-    });
-}
-</code></pre><p>线程池为无限大，当执行第二个任务时第一个任务已经完成，会复用执行第一个任务的线程，而不用每次新建线程。</p>
-<p><li>(2).FixedThreadPool </li><br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。示例代码如下：</p>
-<pre><code>ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
-for (int i = 0; i &lt; 10; i++) {
-    final int index = i;
-    fixedThreadPool.execute(new Runnable() {
+/** 
+ - Created by mrni-mac on 14-11-25. 
+ */  
+public class MyTextView extends TextView {  
+    private String content;  
+    private int width;  
+    private Paint paint;  
+    private int xPadding;  
+    private int yPadding;  
+    private int textHeight;  
+    private int xPaddingMin;  
+    int count;  
+    //记录每个字的二维数组  
+    int[][] position;  
 
-        @Override
-        public void run() {
-            try {
-                System.out.println(index);
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    });
-}
-</code></pre><p>因为线程池大小为3，每个任务输出index后sleep 2秒，所以每两秒打印3个数字。<br>定长线程池的大小最好根据系统资源进行设置。如Runtime.getRuntime().availableProcessors()。</p>
-<p><li>(3).ScheduledThreadPool </li><br>创建一个定长线程池，支持定时及周期性任务执行。延迟执行示例代码如下：</p>
-<pre><code>ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
-scheduledThreadPool.schedule(new Runnable() {
+    public MyTextView(Context context) {  
+        super(context);  
+        init();  
+    }  
 
-    @Override
-    public void run() {
-        System.out.println(&quot;delay 3 seconds&quot;);
-    }
-}, 3, TimeUnit.SECONDS);
-</code></pre><p>表示延迟3秒执行。</p>
-<p>定期执行示例代码如下：</p>
-<pre><code>scheduledThreadPool.scheduleAtFixedRate(new Runnable() {
-    @Override
-    public void run() {
-        System.out.println(&quot;delay 1 seconds, and excute every 3 seconds&quot;);
-    }
-}, 1, 3, TimeUnit.SECONDS);
-</code></pre><p>表示延迟1秒后每3秒执行一次。<br>ScheduledExecutorService比Timer更安全，功能更强大。<br>比较两者Timer缺陷主要如下:<br>1.Timer在执行定时任务时只会创建一个线程，如果存在多个任务且任务时间较长，那么其它任务并不能够准时执行。<br>2.由某个任务抛出异常，导致其余任务不能正常执行，而ScheduledExecutorService是线程池任务互不影响。<br>3.Timer执行周期任务时依赖系统时间，而ScheduledExecutorService基于时间的延迟，不会由于系统时间的改变发生执行变化。</p>
-<p><li>(4).SingleThreadExecutor </li><br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。示例代码如下：</p>
-<pre><code>ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
-for (int i = 0; i &lt; 10; i++) {
-    final int index = i;
-    singleThreadExecutor.execute(new Runnable() {
+    public MyTextView(Context context, AttributeSet attrs) {  
+        super(context, attrs);  
+        init();  
+    }  
 
-        @Override
-        public void run() {
-            try {
-                System.out.println(index);
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    });
-}
-</code></pre><p>结果依次输出，相当于顺序执行各个任务。<br>现行大多数GUI程序都是单线程的。Android中单线程可用于数据库操作，文件操作，应用批量安装，应用批量删除等不适合并发但可能IO阻塞性及影响UI线程响应的操作。</p>
-<h2 id="数据库的优化"><a href="#数据库的优化" class="headerlink" title="数据库的优化"></a>数据库的优化</h2><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>数据库中索引可以帮助快速找到数据，而不用全表扫描，合适的索引可以大大提高数据库查询的效率。缺点是索引的创建和维护存在消耗，索引会占用物理空间，且随着数据量的增加而增加，对增加删除性能也会有所影响。</p>
-<h3 id="使用事务"><a href="#使用事务" class="headerlink" title="使用事务"></a>使用事务</h3><p>Sqlite默认会为每个插入、更新操作创建一个事务，并且在每次插入、更新后立即提交。这样如果连续插入100次数据实际是创建事务-&gt;执行语句-&gt;提交这个过程被重复执行了100次。如果我们显示的创建事务-&gt;执行100条语句-&gt;提交会使得这个创建事务和提交这个过程只做一次，通过这种一次性事务可以使得性能大幅提升。尤其当数据库位于sd卡时，时间上能节省两个数量级左右。</p>
-<pre><code>public void insertWithOneTransaction() {
-    SQLiteDatabase db = sqliteOpenHelper.getWritableDatabase();
-    // Begins a transaction
-    db.beginTransaction();
-    try {
-        // your sqls
-        for (int i = 0; i &lt; 100; i++) {
-            db.insert(yourTableName, null, value);
-        }
+    public MyTextView(Context context, AttributeSet attrs, int defStyle) {  
+        super(context, attrs, defStyle);  
+        init();  
+    }  
 
-        // marks the current transaction as successful
-        db.setTransactionSuccessful();
-    } catch (Exception e) {
-        // process it
-        e.printStackTrace();
-    } finally {
-        // end a transaction
-        db.endTransaction();
-    }
-}
-</code></pre><h3 id="使用事务-1"><a href="#使用事务-1" class="headerlink" title="使用事务"></a>使用事务</h3><p>(1) 语句的拼接使用StringBuilder代替String<br>这个就不多说了，简单的string相加会导致创建多个临时对象消耗性能。StringBuilder的空间预分配性能好得多。如果你对字符串的长度有大致了解，如100字符左右，可以直接new StringBuilder(128)指定初始大小，减少空间不够时的再次分配。</p>
-<p>(2) 查询时返回更少的结果集及更少的字段。<br>查询时只取需要的字段和结果集，更多的结果集会消耗更多的时间及内存，更多的字段会导致更多的内存消耗。</p>
-<p>(3) 少用cursor.getColumnIndex<br>根据性能调优过程中的观察cursor.getColumnIndex的时间消耗跟cursor.getInt相差无几。可以在建表的时候用static变量记住某列的index，直接调用相应index而不是每次查询。</p>
+    public void setText(String str) {  
+        width = this.getWidth();  
+        getPositions(str);  
+        //重新画控件  
+        this.invalidate();  
+    }  
+    public void init() {  
+
+        paint = new Paint();  
+        paint.setColor(Color.parseColor(&quot;#888888&quot;));  
+        paint.setTypeface(Typeface.DEFAULT);  
+        paint.setTextSize(dip2px(this.getContext(), 14f));  
+        Paint.FontMetrics fm = paint.getFontMetrics();// 得到系统默认字体属性  
+        textHeight = (int) (Math.ceil(fm.descent - fm.top) + 2);// 获得字体高度  
+        //字间距  
+        xPadding = dip2px(this.getContext(), 4f);  
+        //行间距  
+        yPadding = dip2px(this.getContext(), 10f);  
+        //比较小的字间距（字母和数字应紧凑）  
+        xPaddingMin = dip2px(this.getContext(), 2f);  
+
+    }  
+
+
+    @Override  
+    protected void onDraw(Canvas canvas) {  
+        super.onDraw(canvas);  
+        if (!TextUtils.isEmpty(content)) {  
+            for (int i = 0; i &lt; count; i++) {  
+                canvas.drawText(String.valueOf(content.charAt(i)), position[i][0],position[i][1], paint);  
+            }  
+        }  
+    }  
+
+
+    public void getPositions(String content) {  
+        this.content = content;  
+        char ch;  
+        //输入点的 x的坐标  
+        int x = 0;  
+        //当前行数  
+        int lineNum = 1;  
+        count = content.length();  
+        //初始化字体位置数组  
+        position=new int[count][2];  
+        for (int i = 0; i &lt; count; i++) {  
+            ch =content.charAt(i);  
+            String str = String.valueOf(ch);  
+
+            //根据画笔获得每一个字符的显示的rect 就是包围框（获得字符宽度）  
+            Rect rect = new Rect();  
+            paint.getTextBounds(str, 0, 1, rect);  
+            int strwidth = rect.width();  
+            //对有些标点做些处理  
+            if (str.equals(&quot;《&quot;) || str.equals(&quot;（&quot;)) {  
+                strwidth += xPaddingMin * 2;  
+            }  
+            //当前行的宽度  
+            float textWith = strwidth;  
+            //没画字前预判看是否会出界  
+            x += textWith;  
+            //出界就换行  
+            if (x &gt; width) {  
+                lineNum++;// 真实的行数加一  
+                x = 0;  
+            } else {  
+                //回到预判前的位置  
+                x -= textWith;  
+            }  
+            //记录每一个字的位置  
+            position[i][0]=x;  
+            position[i][1]=textHeight * lineNum + yPadding * (lineNum - 1);  
+            //判断是否是数字还是字母 （数字和字母应该紧凑点）  
+            //每次输入完毕 进入下一个输入位置准备就绪  
+            if (isNumOrLetters(str)) {  
+                x += textWith + xPaddingMin;  
+            } else {  
+                x += textWith + xPadding;  
+            }  
+        }  
+        //根据所画的内容设置控件的高度  
+        this.setHeight((textHeight +yPadding) * lineNum);  
+    }  
+
+
+
+    //工具类：判断是否是字母或者数字  
+    public boolean isNumOrLetters(String str)  
+    {  
+        String regEx=&quot;^[A-Za-z0-9_]+$&quot;;  
+        Pattern p=Pattern.compile(regEx);  
+        Matcher m=p.matcher(str);  
+        return m.matches();  
+    }  
+     // 工具类：在代码中使用dp的方法（因为代码中直接用数字表示的是像素）  
+    public static int dip2px(Context context, float dip) {  
+        final float scale = context.getResources().getDisplayMetrics().density;  
+        return (int) (dip * scale + 0.5f);  
+    }  
+}  
+</code></pre><p>xml使用如下</p>
+<pre><code>&lt;当前包名.MyTextView  
+                 android:layout_width=&quot;match_parent&quot;  
+                 android:layout_height=&quot;wrap_content&quot;  
+                 android:id=&quot;@+id/video_dec&quot;  
+                /&gt;  
+</code></pre><p>效果如下</p>
+<p><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/1.jpg"></p>
 </span>
       
     </div>
@@ -403,17 +458,13 @@ for (int i = 0; i &lt; 10; i++) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/02/安卓内存溢出的情形与解决方案/" rel="next" title="安卓内存泄漏与解决方案">
-                <i class="fa fa-chevron-left"></i> 安卓内存泄漏与解决方案
+              <a href="/2016/03/04/Android事件传递机制及滑动冲突解决方案/" rel="next" title="Android事件传递机制及滑动冲突解决方案">
+                <i class="fa fa-chevron-left"></i> Android事件传递机制及滑动冲突解决方案
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/03/Java复习/" rel="prev" title="Java复习">
-                Java复习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -438,8 +489,8 @@ for (int i = 0; i &lt; 10; i++) {
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/03/02/性能优化/"
-                   data-title="性能优化" data-url="http://yoursite.com/2016/03/02/性能优化/">
+              <div class="ds-thread" data-thread-key="2016/03/07/Android-TextView设置字间距和行间距/"
+                   data-title="Android TextView设置字间距和行间距" data-url="http://yoursite.com/2016/03/07/Android-TextView设置字间距和行间距/">
               </div>
             
           </div>
@@ -544,7 +595,7 @@ for (int i = 0; i &lt; 10; i++) {
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的优化"><span class="nav-number">1.</span> <span class="nav-text">线程的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的优化"><span class="nav-number">2.</span> <span class="nav-text">数据库的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">2.1.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用事务"><span class="nav-number">2.2.</span> <span class="nav-text">使用事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用事务-1"><span class="nav-number">2.3.</span> <span class="nav-text">使用事务</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
