@@ -223,6 +223,335 @@
             
             
               
+                <a class="post-title-link" href="/2016/03/11/Android混淆/" itemprop="url">
+                  Android混淆
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-03-11T10:34:26+08:00" content="2016-03-11">
+              2016-03-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/11/Android混淆/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/11/Android混淆/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h2 id="proguard简介"><a href="#proguard简介" class="headerlink" title="proguard简介"></a>proguard简介</h2><p>由于java代码容易被反编译，因此android中常用proguard来进行代码混淆。它是对编译好的class文件进行混淆处理，在分析class的同时，他还有其他两个功能，删除无效代码（Shrinking 收缩），和代码进行优化 （Optimization Options）。</p>
+<p>缺省情况下，proguard 会混淆所有代码，但是下面几种情况是不能改变java 元素的名称，否则就会这样就会导致程序出错。<br>一， 我们用到反射的地方。<br>二， 我们代码依赖于系统的接口，比如被系统代码调用的回调方法，这种情况最复杂。<br>三， 是我们的java 元素名称是在配置文件中配置好的。<br>所以使用proguard时，我们需要有个配置文件告诉proguard 那些java元素是不能混淆的。</p>
+<h2 id="proguard配置"><a href="#proguard配置" class="headerlink" title="proguard配置"></a>proguard配置</h2><p>最常用的配置选项</p>
+<pre><code>-dontwarn 缺省proguard 会检查每一个引用是否正确，但是第三方库里面往往有些不会用到的类，没有正确引用。如果不配置的话，系统就会报错。
+-keep 指定的类和类成员被保留作为 入口 。
+-keepclassmembers 指定的类成员被保留。
+-keepclasseswithmembers 指定的类和类成员被保留，假如指定的类成员存在的话。
+</code></pre><p>其它选项</p>
+<pre><code>-include {filename}    从给定的文件中读取配置参数 
+-basedirectory {directoryname}    指定基础目录为以后相对的档案名称 
+-injars {class_path}    指定要处理的应用程序jar,war,ear和目录 
+-outjars {class_path}    指定处理完后要输出的jar,war,ear和目录的名称 
+-libraryjars {classpath}    指定要处理的应用程序jar,war,ear和目录所需要的程序库文件 
+-dontskipnonpubliclibraryclasses    指定不去忽略非公共的库类。 
+-dontskipnonpubliclibraryclassmembers    指定不去忽略包可见的库类的成员。
+
+保留选项 
+-keep {Modifier} {class_specification}    保护指定的类文件和类的成员 
+-keepclassmembers {modifier} {class_specification}    保护指定类的成员，如果此类受到保护他们会保护的更好
+-keepclasseswithmembers {class_specification}    保护指定的类和类的成员，但条件是所有指定的类和类成员是要存在。 
+-keepnames {class_specification}    保护指定的类和类的成员的名称（如果他们不会压缩步骤中删除） 
+-keepclassmembernames {class_specification}    保护指定的类的成员的名称（如果他们不会压缩步骤中删除） 
+-keepclasseswithmembernames {class_specification}    保护指定的类和类的成员的名称，如果所有指定的类成员出席（在压缩步骤之后） 
+-printseeds {filename}    列出类和类的成员-keep选项的清单，标准输出到给定的文件 
+
+压缩 
+-dontshrink    不压缩输入的类文件 
+-printusage {filename} 
+-dontwarn   如果有警告也不终止
+-whyareyoukeeping {class_specification}     
+
+优化 
+-dontoptimize    不优化输入的类文件 
+-assumenosideeffects {class_specification}    优化时假设指定的方法，没有任何副作用 
+-allowaccessmodification    优化时允许访问并修改有修饰符的类和类的成员 
+
+混淆 
+-dontobfuscate    不混淆输入的类文件 
+-printmapping {filename} 
+-applymapping {filename}    重用映射增加混淆 
+-obfuscationdictionary {filename}    使用给定文件中的关键字作为要混淆方法的名称 
+-overloadaggressively    混淆时应用侵入式重载 
+-useuniqueclassmembernames    确定统一的混淆类的成员名称来增加混淆 
+-flattenpackagehierarchy {package_name}    重新包装所有重命名的包并放在给定的单一包中 
+-repackageclass {package_name}    重新包装所有重命名的类文件中放在给定的单一包中 
+-dontusemixedcaseclassnames    混淆时不会产生形形色色的类名 
+-keepattributes {attribute_name,...}    保护给定的可选属性，例如LineNumberTable, LocalVariableTable, SourceFile, Deprecated, Synthetic, Signature, and 
+
+InnerClasses. 
+-renamesourcefileattribute {string}    设置源文件中给定的字符串常量
+</code></pre><h2 id="proguard-问题和风险"><a href="#proguard-问题和风险" class="headerlink" title="proguard 问题和风险"></a>proguard 问题和风险</h2><p>代码混淆后虽然有混淆优化的好处，但是它往往也会带来如下的几点问题<br>1，混淆错误，用到第三方库的时候，必须告诉 proguard 不要检查，否则proguard 会报错。<br>2，运行错误，当code不能混淆的时候，我们必须要正确配置，否则程序会运行出错，这种情况问题最多。<br>3，调试苦难，出错了，错误堆栈是混淆后的代码，自己也看不懂。</p>
+<p>常见的不能混淆的androidCode<br>Android 程序 ，下面这样代码混淆的时候要注意保留。<br>Android系统组件，系统组件有固定的方法被系统调用。<br>被Android Resource 文件引用到的。名字已经固定，也不能混淆，比如自定义的View 。<br>Android Parcelable ，需要使用android 序列化的。<br>其他Anroid 官方建议 不混淆的，如<br>android.app.backup.BackupAgentHelper<br>android.preference.Preference<br>com.android.vending.licensing.ILicensingService<br>Java序列化方法，系统序列化需要固定的方法。<br>枚举 ，系统需要处理枚举的固定方法。<br>本地方法，不能修改本地方法名<br>annotations 注释<br>数据库驱动<br>有些resource 文件<br>用到反射的地方</p>
+<p>如何实施<br>现在的系统已经配置为混淆时候会保留<br>Android系统组件<br>自定义View<br>Android Parcelable<br>Android R 文件<br>Android Parcelable<br>枚举<br>各个开发人员必须检查自己的code 是否用到反射，和其他不能混淆的地方。告诉我来修改配置文件（已经保留的就不需要了）。</p>
+<h2 id="Android-Studio中使用混淆"><a href="#Android-Studio中使用混淆" class="headerlink" title="Android Studio中使用混淆"></a>Android Studio中使用混淆</h2><p>在gradle中进行设置</p>
+<pre><code>buildTypes {
+       release {
+           minifyEnabled true
+           proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+       }
+   }
+</code></pre><p>proguardFiles这部分有两段，前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明，免去了我们很多事，这个文件的目录在/tools/proguard/proguard-android.txt ,后一部分是我们项目里的自定义的混淆文件，目录就在app/proguard-rules.txt , 如果你用Studio 1.0创建的新项目默认生成的文件名是 proguard-rules.pro , 这个名字没关系，在这个文件里你可以声明一些第三方依赖的一些混淆规则。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><pre><code>-optimizationpasses 7  #指定代码的压缩级别 0 - 7
+-dontusemixedcaseclassnames  #是否使用大小写混合
+-dontskipnonpubliclibraryclasses  #如果应用程序引入的有jar包，并且想混淆jar包里面的class
+-dontpreverify  #混淆时是否做预校验（可去掉加快混淆速度）
+-verbose #混淆时是否记录日志（混淆后生产映射文件 map 类名 -&gt; 转化后类名的映射
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  #淆采用的算法
+
+-keep public class * extends android.app.Activity  #所有activity的子类不要去混淆
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService #指定具体类不要去混淆
+
+-keepclasseswithmembernames class * {
+    native &lt;methods&gt;;  #保持 native 的方法不去混淆
+}
+
+-keepclasseswithmembers class * {
+    public &lt;init&gt;(android.content.Context, android.util.AttributeSet);  #保持自定义控件类不被混淆，指定格式的构造方法不去混淆
+}
+
+-keepclasseswithmembers class * {
+    public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers class * extends android.app.Activity { 
+    public void *(android.view.View); #保持指定规则的方法不被混淆（Android layout 布局文件中为控件配置的onClick方法不能混淆）
+}
+
+-keep public class * extends android.view.View {  #保持自定义控件指定规则的方法不被混淆
+    public &lt;init&gt;(android.content.Context);
+    public &lt;init&gt;(android.content.Context, android.util.AttributeSet);
+    public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int);
+    public void set*(...);
+}
+
+-keepclassmembers enum * {  #保持枚举 enum 不被混淆
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {  #保持 Parcelable 不被混淆（aidl文件不能去混淆）
+    public static final android.os.Parcelable$Creator *;
+}
+
+-keepnames class * implements java.io.Serializable #需要序列化和反序列化的类不能被混淆（注：Java反射用到的类也不能被混淆）
+
+-keepclassmembers class * implements java.io.Serializable { #保护实现接口Serializable的类中，指定规则的类成员不被混淆
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient &lt;fields&gt;;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+-keepattributes Signature  #过滤泛型（不写可能会出现类型转换错误，一般情况把这个加上就是了）
+
+-keepattributes *Annotation*  #假如项目中有用到注解，应加入这行配置
+
+-keep class **.R$* { *; }  #保持R文件不被混淆，否则，你的反射是获取不到资源id的
+
+-keep class **.Webview2JsInterface { *; }  #保护WebView对HTML页面的API不被混淆
+-keepclassmembers class * extends android.webkit.WebViewClient {  #如果你的项目中用到了webview的复杂操作 ，最好加入
+     public void *(android.webkit.WebView,java.lang.String,android.graphics.Bitmap);
+     public boolean *(android.webkit.WebView,java.lang.String);
+}
+-keepclassmembers class * extends android.webkit.WebChromeClient {  #如果你的项目中用到了webview的复杂操作 ，最好加入
+     public void *(android.webkit.WebView,java.lang.String);
+}
+#对WebView的简单说明下：经过实战检验,做腾讯QQ登录，如果引用他们提供的jar，若不加防止WebChromeClient混淆的代码，oauth认证无法回调，反编译基代码后可看到他们有用到WebChromeClient，加入此代码即可。
+
+-keepclassmembernames class com.cgv.cn.movie.common.bean.** { *; }  #转换JSON的JavaBean，类成员名称保护，使其不被混淆
+
+##################################################################
+# 下面都是项目中引入的第三方 jar 包。第三方 jar 包中的代码不是我们的目标和关心的对象，故而对此我们全部忽略不进行混淆。
+##################################################################
+-libraryjars  libs/android-support-v4.jar
+-dontwarn android.support.v4.**
+-keep class android.support.v4.** { *; }  
+-keep interface android.support.v4.** { *; }
+-keep public class * extends android.support.v4.** 
+-keep public class * extends android.app.Fragment
+
+-libraryjars libs/gson-2.3.1-sources.jar
+-libraryjars libs/gson-2.3.1.jar
+-dontwarn com.google.gson.**    
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.** { *; }
+
+-libraryjars libs/alipaySDK-20150602.jar
+-dontwarn com.alipay.**    
+-dontwarn com.ta.utdid2.**    
+-dontwarn com.ut.device.**    
+-keep class com.alipay.** { *; }
+-keep class com.ta.utdid2.** { *; }
+-keep class com.ut.device.** { *; }
+
+-libraryjars libs/android-async-http-1.4.6.jar
+-dontwarn com.loopj.android.http.**
+-keep class com.loopj.android.http.** { *; }
+
+-libraryjars libs/baidumapapi_v2_4_1.jar
+-dontwarn com.baidu.**
+-keep class com.baidu.** {*; }
+-keep class assets.** {*; }
+-keep class vi.com.gdi.bgl.** {*; }
+
+-libraryjars libs/libammsdk.jar
+-dontwarn com.tencent.**
+-keep class com.tencent.** { *; }
+
+-libraryjars libs/locSDK_4.1.jar
+-dontwarn com.baidu.location.**
+-keep class com.baidu.location.** { *; }
+
+-libraryjars libs/mframework.jar
+-dontwarn m.framework.**
+-keep class m.framework.** { *; }
+
+-libraryjars libs/mta-sdk-1.6.2.jar
+-dontwarn com.tencent.stat.**
+-keep class com.tencent.stat.** { *; }
+
+-libraryjars libs/nineoldandroids-library-2.4.0.jar
+-dontwarn com.nineoldandroids.**
+-keep class com.nineoldandroids.** { *; }
+
+-libraryjars libs/open_sdk_r4889.jar
+-dontwarn com.tencent.**
+-keep class com.tencent.** { *; } 
+
+-libraryjars libs/ShareSDK-Core-2.5.9.jar
+-dontwarn cn.sharesdk.framework.**
+-keep class cn.sharesdk.framework.** { *; } 
+
+-libraryjars libs/ShareSDK-ShortMessage-2.5.9.jar
+-dontwarn cn.sharesdk.system.text.**
+-keep class cn.sharesdk.system.text.** { *; } 
+
+-libraryjars libs/ShareSDK-SinaWeibo-2.5.9.jar
+-dontwarn cn.sharesdk.sina.weibo.**
+-keep class cn.sharesdk.sina.weibo.** { *; } 
+
+-libraryjars libs/ShareSDK-Wechat-2.5.9.jar
+-dontwarn cn.sharesdk.wechat.friends.**
+-keep class cn.sharesdk.wechat.friends.** { *; } 
+
+-libraryjars libs/ShareSDK-Wechat-Core-2.5.9.jar
+-dontwarn cn.sharesdk.wechat.utils.**
+-keep class cn.sharesdk.wechat.utils.** { *; } 
+
+-libraryjars libs/ShareSDK-Wechat-Favorite-2.5.9.jar
+-dontwarn cn.sharesdk.wechat.favorite.**
+-keep class cn.sharesdk.wechat.favorite.** { *; } 
+
+-libraryjars libs/ShareSDK-Wechat-Moments-2.5.9.jar
+-dontwarn cn.sharesdk.wechat.moments.**
+-keep class cn.sharesdk.wechat.moments.** { *; } 
+
+-libraryjars libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar
+-dontwarn com.nostra13.universalimageloader.**
+-keep class com.nostra13.universalimageloader.** { *; } 
+
+-libraryjars libs/weibosdkcore.jar
+-dontwarn com.sina.weibo.sdk.**
+-keep class com.sina.weibo.sdk.** { *; }
+</code></pre>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2016/03/07/Android-TextView设置字间距和行间距/" itemprop="url">
                   Android TextView设置字间距和行间距
                 </a>
@@ -1625,7 +1954,7 @@ for (int i = 0; i &lt; 10; i++) {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
