@@ -45,33 +45,27 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="原文
-设置TextView的行间距android:lineSpacingMultiplier=&amp;quot;1.8&amp;quot;  
-设置字间距需要自定义控件import android.graphics.*;  
-import android.text.TextUtils;  
-import android.util.AttributeSet;  
-import android.widget.Tex">
+<meta name="description" content="概述传统MVC模式中：View对应于布局文件Model业务逻辑和实体模型Controllor对应于Activity
+但是实际开发过程中，我们又通常将事件处理的代码都在Activity中，造成了Activity既像View又像Controller。
+而MVP模式中：View 对应于Activity，负责View的绘制以及与用户交互Model 依然是业务逻辑和实体模型Presenter 负责完成Vie">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android TextView设置字间距和行间距">
-<meta property="og:url" content="http://yoursite.com/2016/03/07/Android-TextView设置字间距和行间距/index.html">
+<meta property="og:title" content="Android MVP模式">
+<meta property="og:url" content="http://yoursite.com/2016/03/15/Android-MVP模式/index.html">
 <meta property="og:site_name" content="Muffin">
-<meta property="og:description" content="原文
-设置TextView的行间距android:lineSpacingMultiplier=&amp;quot;1.8&amp;quot;  
-设置字间距需要自定义控件import android.graphics.*;  
-import android.text.TextUtils;  
-import android.util.AttributeSet;  
-import android.widget.Tex">
-<meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/1.jpg">
-<meta property="og:updated_time" content="2016-03-07T07:38:49.191Z">
+<meta property="og:description" content="概述传统MVC模式中：View对应于布局文件Model业务逻辑和实体模型Controllor对应于Activity
+但是实际开发过程中，我们又通常将事件处理的代码都在Activity中，造成了Activity既像View又像Controller。
+而MVP模式中：View 对应于Activity，负责View的绘制以及与用户交互Model 依然是业务逻辑和实体模型Presenter 负责完成Vie">
+<meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/mvc.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/mvp.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/diff_mvp_mvc.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/mvp_code.png">
+<meta property="og:updated_time" content="2016-03-15T07:46:53.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android TextView设置字间距和行间距">
-<meta name="twitter:description" content="原文
-设置TextView的行间距android:lineSpacingMultiplier=&amp;quot;1.8&amp;quot;  
-设置字间距需要自定义控件import android.graphics.*;  
-import android.text.TextUtils;  
-import android.util.AttributeSet;  
-import android.widget.Tex">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/1.jpg">
+<meta name="twitter:title" content="Android MVP模式">
+<meta name="twitter:description" content="概述传统MVC模式中：View对应于布局文件Model业务逻辑和实体模型Controllor对应于Activity
+但是实际开发过程中，我们又通常将事件处理的代码都在Activity中，造成了Activity既像View又像Controller。
+而MVP模式中：View 对应于Activity，负责View的绘制以及与用户交互Model 依然是业务逻辑和实体模型Presenter 负责完成Vie">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/mvc.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -83,7 +77,7 @@ import android.widget.Tex">
 
 
 
-  <title> Android TextView设置字间距和行间距 | Muffin </title>
+  <title> Android MVP模式 | Muffin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +233,7 @@ import android.widget.Tex">
             
             
               
-                Android TextView设置字间距和行间距
+                Android MVP模式
               
             
           </h1>
@@ -248,8 +242,8 @@ import android.widget.Tex">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-03-07T15:23:56+08:00" content="2016-03-07">
-              2016-03-07
+            <time itemprop="dateCreated" datetime="2016-03-15T14:59:36+08:00" content="2016-03-15">
+              2016-03-15
             </time>
           </span>
 
@@ -274,8 +268,8 @@ import android.widget.Tex">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/07/Android-TextView设置字间距和行间距/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/07/Android-TextView设置字间距和行间距/" itemprop="commentsCount"></span>
+                <a href="/2016/03/15/Android-MVP模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/15/Android-MVP模式/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,155 +288,132 @@ import android.widget.Tex">
       
 
       
-        <span itemprop="articleBody"><p><a href="http://blog.csdn.net/nsw911439370/article/details/41542861?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">原文</a></p>
-<h3 id="设置TextView的行间距"><a href="#设置TextView的行间距" class="headerlink" title="设置TextView的行间距"></a>设置TextView的行间距</h3><pre><code>android:lineSpacingMultiplier=&quot;1.8&quot;  
-</code></pre><h3 id="设置字间距需要自定义控件"><a href="#设置字间距需要自定义控件" class="headerlink" title="设置字间距需要自定义控件"></a>设置字间距需要自定义控件</h3><pre><code>import android.graphics.*;  
-import android.text.TextUtils;  
-import android.util.AttributeSet;  
-import android.widget.TextView;  
+        <span itemprop="articleBody"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>传统MVC模式中：<br>View对应于布局文件<br>Model业务逻辑和实体模型<br>Controllor对应于Activity</p>
+<p>但是实际开发过程中，我们又通常将事件处理的代码都在Activity中，造成了Activity既像View又像Controller。<br><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/mvc.png"></p>
+<p>而MVP模式中：<br>View 对应于Activity，负责View的绘制以及与用户交互<br>Model 依然是业务逻辑和实体模型<br>Presenter 负责完成View于Model间的交互<br><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/mvp.png"></p>
+<h2 id="MVP和MVC的区别"><a href="#MVP和MVC的区别" class="headerlink" title="MVP和MVC的区别"></a>MVP和MVC的区别</h2><p><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/diff_mvp_mvc.png"></p>
+<p>MVC中是允许Model和View进行交互的，而MVP中很明显，Model与View之间的交互由Presenter完成。还有一点就是Presenter与View之间的交互是通过接口的</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/mvp_code.png"></p>
+<p>1.M层对象：</p>
+<pre><code>public class UserBean {
+     private String mFirstName;
+     private String mLastName;
 
-import java.util.regex.Matcher;  
-import java.util.regex.Pattern;  
+     public UserBean(String firstName, String lastName) {
+            this. mFirstName = firstName;
+            this. mLastName = lastName;
+     }
 
-/** 
- - Created by mrni-mac on 14-11-25. 
- */  
-public class MyTextView extends TextView {  
-    private String content;  
-    private int width;  
-    private Paint paint;  
-    private int xPadding;  
-    private int yPadding;  
-    private int textHeight;  
-    private int xPaddingMin;  
-    int count;  
-    //记录每个字的二维数组  
-    int[][] position;  
+     public String getFirstName() {
+            return mFirstName;
+     }
 
-    public MyTextView(Context context) {  
-        super(context);  
-        init();  
-    }  
+     public String getLastName() {
+            return mLastName;
+     }
+}
+</code></pre><p>2.M层创建处理业务逻辑接口</p>
+<pre><code>public interface IUserModel {
+     void setID(int id);
+     void setFirstName(String firstName);
+     void setLastName(String lastName);
+     int getID();
+     UserBean load(int id);// 通过id读取user信息,返回一个UserBean
+}
+</code></pre><p>3.M层实现IUserView</p>
+<pre><code>public class IUserModel implements IUserModel{
+    ...
+}
+</code></pre><p>4.V层更新ui中的view状态接口</p>
+<pre><code>public interface IUserView {
+     int getID();
+     String getFristName();
+     String getLastName();
+     void setFirstName(String firstName);
+     void setLastName(String lastName);
+}
+</code></pre><p>4.P层presenter完成交互</p>
+<pre><code>public class UserPresenter {
+     private IUserView mUserView;
+     private IUserModel mUserModel;
 
-    public MyTextView(Context context, AttributeSet attrs) {  
-        super(context, attrs);  
-        init();  
-    }  
+     public UserPresenter(IUserView view) {
+            mUserView = view;
+            mUserModel = new UserModel();
+     }
 
-    public MyTextView(Context context, AttributeSet attrs, int defStyle) {  
-        super(context, attrs, defStyle);  
-        init();  
-    }  
+     public void saveUser( int id, String firstName, String lastName) {
+            mUserModel.setID(id);
+            mUserModel.setFirstName(firstName);
+            mUserModel.setLastName(lastName);
+     }
 
-    public void setText(String str) {  
-        width = this.getWidth();  
-        getPositions(str);  
-        //重新画控件  
-        this.invalidate();  
-    }  
-    public void init() {  
+     public void loadUser( int id) {
+           UserBean user = mUserModel.load(id);
+            mUserView.setFirstName(user.getFirstName()); // 通过调用IUserView的方法来更新显示
+            mUserView.setLastName(user.getLastName());
+     }
+}
+</code></pre><p>5.V层activity中实现接口</p>
+<pre><code>public class MainActivity extends Activity implements OnClickListener,IUserView {
 
-        paint = new Paint();  
-        paint.setColor(Color.parseColor(&quot;#888888&quot;));  
-        paint.setTypeface(Typeface.DEFAULT);  
-        paint.setTextSize(dip2px(this.getContext(), 14f));  
-        Paint.FontMetrics fm = paint.getFontMetrics();// 得到系统默认字体属性  
-        textHeight = (int) (Math.ceil(fm.descent - fm.top) + 2);// 获得字体高度  
-        //字间距  
-        xPadding = dip2px(this.getContext(), 4f);  
-        //行间距  
-        yPadding = dip2px(this.getContext(), 10f);  
-        //比较小的字间距（字母和数字应紧凑）  
-        xPaddingMin = dip2px(this.getContext(), 2f);  
+     UserPresenter presenter;
+     EditText id,first,last;
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+           setContentView(R.layout. activity_main);
 
-    }  
+           findViewById(R.id. save).setOnClickListener( this);
+           findViewById(R.id. load).setOnClickListener( this);
+            id = (EditText) findViewById(R.id. id);
+            first = (EditText) findViewById(R.id. first);
+            last = (EditText) findViewById(R.id. last);
 
+            presenter = new UserPresenter( this);
+     }
 
-    @Override  
-    protected void onDraw(Canvas canvas) {  
-        super.onDraw(canvas);  
-        if (!TextUtils.isEmpty(content)) {  
-            for (int i = 0; i &lt; count; i++) {  
-                canvas.drawText(String.valueOf(content.charAt(i)), position[i][0],position[i][1], paint);  
-            }  
-        }  
-    }  
+     @Override
+     public void onClick(View v) {
+            switch (v.getId()) {
+            case R.id. save:
+                 presenter.saveUser(getID(), getFristName(), getLastName());
+                 break;
+            case R.id. load:
+                 presenter.loadUser(getID());
+                 break;
+            default:
+                 break;
+           }
+     }
 
+     @Override
+     public int getID() {
+            return new Integer( id.getText().toString());
+     }
 
-    public void getPositions(String content) {  
-        this.content = content;  
-        char ch;  
-        //输入点的 x的坐标  
-        int x = 0;  
-        //当前行数  
-        int lineNum = 1;  
-        count = content.length();  
-        //初始化字体位置数组  
-        position=new int[count][2];  
-        for (int i = 0; i &lt; count; i++) {  
-            ch =content.charAt(i);  
-            String str = String.valueOf(ch);  
+     @Override
+     public String getFristName() {
+            return first.getText().toString();
+     }
 
-            //根据画笔获得每一个字符的显示的rect 就是包围框（获得字符宽度）  
-            Rect rect = new Rect();  
-            paint.getTextBounds(str, 0, 1, rect);  
-            int strwidth = rect.width();  
-            //对有些标点做些处理  
-            if (str.equals(&quot;《&quot;) || str.equals(&quot;（&quot;)) {  
-                strwidth += xPaddingMin * 2;  
-            }  
-            //当前行的宽度  
-            float textWith = strwidth;  
-            //没画字前预判看是否会出界  
-            x += textWith;  
-            //出界就换行  
-            if (x &gt; width) {  
-                lineNum++;// 真实的行数加一  
-                x = 0;  
-            } else {  
-                //回到预判前的位置  
-                x -= textWith;  
-            }  
-            //记录每一个字的位置  
-            position[i][0]=x;  
-            position[i][1]=textHeight * lineNum + yPadding * (lineNum - 1);  
-            //判断是否是数字还是字母 （数字和字母应该紧凑点）  
-            //每次输入完毕 进入下一个输入位置准备就绪  
-            if (isNumOrLetters(str)) {  
-                x += textWith + xPaddingMin;  
-            } else {  
-                x += textWith + xPadding;  
-            }  
-        }  
-        //根据所画的内容设置控件的高度  
-        this.setHeight((textHeight +yPadding) * lineNum);  
-    }  
+     @Override
+     public String getLastName() {
+            return last.getText().toString();
+     }
 
+     @Override
+     public void setFirstName(String firstName) {
+            first.setText(firstName);
+     }
 
+     @Override
+     public void setLastName(String lastName) {
+            last.setText(lastName);
+     }
 
-    //工具类：判断是否是字母或者数字  
-    public boolean isNumOrLetters(String str)  
-    {  
-        String regEx=&quot;^[A-Za-z0-9_]+$&quot;;  
-        Pattern p=Pattern.compile(regEx);  
-        Matcher m=p.matcher(str);  
-        return m.matches();  
-    }  
-     // 工具类：在代码中使用dp的方法（因为代码中直接用数字表示的是像素）  
-    public static int dip2px(Context context, float dip) {  
-        final float scale = context.getResources().getDisplayMetrics().density;  
-        return (int) (dip * scale + 0.5f);  
-    }  
-}  
-</code></pre><p>xml使用如下</p>
-<pre><code>&lt;当前包名.MyTextView  
-                 android:layout_width=&quot;match_parent&quot;  
-                 android:layout_height=&quot;wrap_content&quot;  
-                 android:id=&quot;@+id/video_dec&quot;  
-                /&gt;  
-</code></pre><p>效果如下</p>
-<p><img src="https://raw.githubusercontent.com/wuhanzhouguanjie/wuhanzhouguanjie.github.io/master/uploads/1.jpg"></p>
-</span>
+}
+</code></pre></span>
       
     </div>
 
@@ -459,17 +430,13 @@ public class MyTextView extends TextView {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/04/Android事件传递机制及滑动冲突解决方案/" rel="next" title="Android事件传递机制及滑动冲突解决方案">
-                <i class="fa fa-chevron-left"></i> Android事件传递机制及滑动冲突解决方案
+              <a href="/2016/03/11/Android混淆/" rel="next" title="Android混淆">
+                <i class="fa fa-chevron-left"></i> Android混淆
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/11/Android混淆/" rel="prev" title="Android混淆">
-                Android混淆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -494,8 +461,8 @@ public class MyTextView extends TextView {
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/03/07/Android-TextView设置字间距和行间距/"
-                   data-title="Android TextView设置字间距和行间距" data-url="http://yoursite.com/2016/03/07/Android-TextView设置字间距和行间距/">
+              <div class="ds-thread" data-thread-key="2016/03/15/Android-MVP模式/"
+                   data-title="Android MVP模式" data-url="http://yoursite.com/2016/03/15/Android-MVP模式/">
               </div>
             
           </div>
@@ -600,7 +567,7 @@ public class MyTextView extends TextView {
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置TextView的行间距"><span class="nav-number">1.</span> <span class="nav-text">设置TextView的行间距</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置字间距需要自定义控件"><span class="nav-number">2.</span> <span class="nav-text">设置字间距需要自定义控件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP和MVC的区别"><span class="nav-number">2.</span> <span class="nav-text">MVP和MVC的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">3.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
