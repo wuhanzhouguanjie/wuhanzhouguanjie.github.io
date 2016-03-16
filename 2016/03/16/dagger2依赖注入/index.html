@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="教程," />
+  <meta name="keywords" content="Android学习," />
 
 
 
@@ -45,19 +45,25 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="dagger2的作用依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
+依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。
+app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。
+主要的注解@Inject: 通常在需要依赖的地方使用这个注解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/03/01/hello-world/index.html">
+<meta property="og:title" content="dagger2依赖注入">
+<meta property="og:url" content="http://yoursite.com/2016/03/16/dagger2依赖注入/index.html">
 <meta property="og:site_name" content="Muffin">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-03-02T01:45:43.946Z">
+<meta property="og:description" content="dagger2的作用依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
+依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。
+app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。
+主要的注解@Inject: 通常在需要依赖的地方使用这个注解">
+<meta property="og:updated_time" content="2016-03-16T09:56:12.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="dagger2依赖注入">
+<meta name="twitter:description" content="dagger2的作用依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
+依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。
+app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。
+主要的注解@Inject: 通常在需要依赖的地方使用这个注解">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +75,7 @@ Quick">
 
 
 
-  <title> Hello World | Muffin </title>
+  <title> dagger2依赖注入 | Muffin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -225,7 +231,7 @@ Quick">
             
             
               
-                Hello World
+                dagger2依赖注入
               
             
           </h1>
@@ -234,8 +240,8 @@ Quick">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-03-01T14:21:16+08:00" content="2016-03-01">
-              2016-03-01
+            <time itemprop="dateCreated" datetime="2016-03-16T11:44:03+08:00" content="2016-03-16">
+              2016-03-16
             </time>
           </span>
 
@@ -244,8 +250,8 @@ Quick">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -260,8 +266,8 @@ Quick">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/01/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/01/hello-world/" itemprop="commentsCount"></span>
+                <a href="/2016/03/16/dagger2依赖注入/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/16/dagger2依赖注入/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -280,15 +286,107 @@ Quick">
       
 
       
-        <span itemprop="articleBody"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <span itemprop="articleBody"><h2 id="dagger2的作用"><a href="#dagger2的作用" class="headerlink" title="dagger2的作用"></a>dagger2的作用</h2><p>依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。</p>
+<p>依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。</p>
+<p>app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。</p>
+<h2 id="主要的注解"><a href="#主要的注解" class="headerlink" title="主要的注解"></a>主要的注解</h2><p>@Inject: 通常在需要依赖的地方使用这个注解。换句话说，你用它告诉Dagger这个类或者字段需要依赖注入。这样，Dagger就会构造一个这个类的实例并满足他们的依赖。</p>
+<p>@Module: Modules类里面的方法专门提供依赖，所以我们定义一个类，用@Module注解，这样Dagger在构造类的实例的时候，就知道从哪里去找到需要的依赖。modules的一个重要特征是它们设计为分区并组合在一起（比如说，在我们的app中可以有多个组成在一起的modules）。</p>
+<p>@Provides: 在modules中，我们定义的方法是用这个注解，以此来告诉Dagger我们想要构造对象并提供这些依赖。</p>
+<p>@Component: Components从根本上来说就是一个注入器，也可以说是@Inject和@Module的桥梁，它的主要作用就是连接这两个部分。 Components可以提供所有定义了的类型的实例，比如：我们必须用@Component注解一个接口然后列出所有的@Modules组成该组件，如 果缺失了任何一块都会在编译的时候报错。所有的组件都可以通过它的modules知道依赖的范围。</p>
+<p>@Scope: Scopes可是非常的有用，Dagger2可以通过自定义注解限定注解作用域。后面会演示一个例子，这是一个非常强大的特点，因为就如前面说的一样，没必要让每个对象都去了解如何管理他们的实例。</p>
+<h2 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h2><p>使用dagger2首先要构建module类<br>代码如下:</p>
+<pre><code>@Module
+public class Boss {  
+    @Inject
+    public Boss(){
+    }
+}
+</code></pre><p>接着构建Component接口作为module和要注入类之间的桥梁<br>代码如下：</p>
+<pre><code>@Singleton
+@Component(modules =  Boss.class)
+public interface BossComponent {
+    void inject(MainActivity mainActivity);
+}
+</code></pre><p>被注入类MainActivity如下：</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+    @Inject
+    Boss mBoss;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        BossComponent bossComponent = DaggerBossComponent.builder()
+                            .boss(new Boss())
+                            .build();
+        bossComponent.inject(this);
+    }
+}
+</code></pre><p>在这里可以看到由Dagger生成了一个辅助类DaggerBossComponent。<br>DaggerBossComponent.builder()获取了一个静态内部类Builder的对象。<br>代码如下：</p>
+<pre><code>public static Builder builder() {  
+    return new Builder();
+}
+</code></pre><p>Builder类有一个Boss成员变量还有一个boss方法。</p>
+<pre><code>public Builder boss(Boss boss) {  
+    if (boss == null) {
+        throw new NullPointerException(&quot;boss&quot;);
+    }
+    this.boss = boss;
+    return this;
+}
+</code></pre><p>之后调用build方法</p>
+<pre><code>public BossComponent build() {  
+    if (boss == null) {
+        this.boss = new Boss();
+    }
+    return new DaggerBossComponent(this);
+}
+</code></pre><p>这里我不太明白为什么又判断一次boss为null，最后build()方法创建了DaggerBossComponent对象，DaggerBossComponent部分代码如下：</p>
+<pre><code>private MembersInjector&lt;MainActivity&gt; mainActivityMembersInjector;
+
+private DaggerBossComponent(Builder builder) {  
+    assert builder != null;
+    initialize(builder);
+}
+
+private void initialize(final Builder builder) {  
+    this.mainActivityMembersInjector = MainActivity_MembersInjector.create((MembersInjector) MembersInjectors.noOp(), Boss_Factory.create());
+}
+
+@Override
+public void inject(MainActivity mainActivity) {  
+    mainActivityMembersInjector.injectMembers(mainActivity);
+}
+</code></pre><p>MainActivity_MembersInjector类实现了MembersInjector这个接口，MainActivity_MembersInjector.create中完成了各种初始化，并在injectMembers中完成对mBoss的赋值。<br>代码如下：</p>
+<pre><code>@Generated(&quot;dagger.internal.codegen.ComponentProcessor&quot;)
+public final class MainActivity_MembersInjector implements MembersInjector&lt;MainActivity&gt; {
+    private final MembersInjector&lt;AppCompatActivity&gt; supertypeInjector;
+    private final Provider&lt;Boss&gt; mBossProvider;
+
+    public MainActivity_MembersInjector(MembersInjector&lt;AppCompatActivity&gt; supertypeInjector, Provider&lt;Boss&gt; mBossProvider) {  
+        assert supertypeInjector != null;
+        this.supertypeInjector = supertypeInjector;
+        assert mBossProvider != null;
+        this.mBossProvider = mBossProvider;
+    }
+
+    @Override
+    public void injectMembers(MainActivity instance) {  
+        if (instance == null) {
+            throw new NullPointerException(&quot;Cannot inject members into a null reference&quot;);
+        }
+        supertypeInjector.injectMembers(instance);
+        instance.mBoss = mBossProvider.get();
+    }
+
+    public static MembersInjector&lt;MainActivity&gt; create(MembersInjector&lt;AppCompatActivity&gt; supertypeInjector, Provider&lt;Boss&gt; mBossProvider) {  
+        return new MainActivity_MembersInjector(supertypeInjector, mBossProvider);
+    }
+}
+</code></pre><p>因此bossComponent.inject(this)调用方法如下：</p>
+<pre><code>bossComponent.inject(this)
+    -&gt;DaggerBossComponent.inject(MainActivity)
+    -&gt;MainActivity_MembersInjector.injectMembers(MainActivity)
+</code></pre><p>未完待续</p>
 </span>
       
     </div>
@@ -297,7 +395,7 @@ Quick">
       
         <div class="post-tags">
           
-            <a href="/tags/教程/" rel="tag">#教程</a>
+            <a href="/tags/Android学习/" rel="tag">#Android学习</a>
           
         </div>
       
@@ -306,13 +404,13 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/03/15/Android-MVP模式/" rel="next" title="Android MVP模式">
+                <i class="fa fa-chevron-left"></i> Android MVP模式
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/02/安卓内存溢出的情形与解决方案/" rel="prev" title="安卓内存泄漏与解决方案">
-                安卓内存泄漏与解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -337,8 +435,8 @@ Quick">
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/03/01/hello-world/"
-                   data-title="Hello World" data-url="http://yoursite.com/2016/03/01/hello-world/">
+              <div class="ds-thread" data-thread-key="2016/03/16/dagger2依赖注入/"
+                   data-title="dagger2依赖注入" data-url="http://yoursite.com/2016/03/16/dagger2依赖注入/">
               </div>
             
           </div>
@@ -443,7 +541,7 @@ Quick">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dagger2的作用"><span class="nav-number">1.</span> <span class="nav-text">dagger2的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要的注解"><span class="nav-number">2.</span> <span class="nav-text">主要的注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个简单的例子"><span class="nav-number">3.</span> <span class="nav-text">一个简单的例子</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
