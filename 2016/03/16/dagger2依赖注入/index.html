@@ -45,25 +45,28 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="dagger2的作用依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
+<meta name="description" content="dagger2的作用Dagger2介绍DI理解以及Dagger生成代码分析
+依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
 依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。
 app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。
-主要的注解@Inject: 通常在需要依赖的地方使用这个注解">
+主要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dagger2依赖注入">
 <meta property="og:url" content="http://yoursite.com/2016/03/16/dagger2依赖注入/index.html">
 <meta property="og:site_name" content="Muffin">
-<meta property="og:description" content="dagger2的作用依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
+<meta property="og:description" content="dagger2的作用Dagger2介绍DI理解以及Dagger生成代码分析
+依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
 依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。
 app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。
-主要的注解@Inject: 通常在需要依赖的地方使用这个注解">
-<meta property="og:updated_time" content="2016-03-16T09:56:12.534Z">
+主要">
+<meta property="og:updated_time" content="2016-03-17T08:32:34.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dagger2依赖注入">
-<meta name="twitter:description" content="dagger2的作用依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
+<meta name="twitter:description" content="dagger2的作用Dagger2介绍DI理解以及Dagger生成代码分析
+依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。
 依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。
 app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。
-主要的注解@Inject: 通常在需要依赖的地方使用这个注解">
+主要">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -286,7 +289,8 @@ app中的组件不需要知道有关实例创建和生命周期的任何事情�
       
 
       
-        <span itemprop="articleBody"><h2 id="dagger2的作用"><a href="#dagger2的作用" class="headerlink" title="dagger2的作用"></a>dagger2的作用</h2><p>依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。</p>
+        <span itemprop="articleBody"><h2 id="dagger2的作用"><a href="#dagger2的作用" class="headerlink" title="dagger2的作用"></a>dagger2的作用</h2><p><a href="https://yongjhih.gitbooks.io/feed/content/dagger2.html" target="_blank" rel="external">Dagger2介绍</a><br><a href="http://zane96.github.io/2016/01/22/DI%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8ADagger%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/" target="_blank" rel="external">DI理解以及Dagger生成代码分析</a></p>
+<p>依赖的注入和配置独立于组件之外，注入的对象在一个独立、不耦合的地方初始化，这样在改变注入对象时，我们只需要修改对象的实现方法，而不用大改代码库。</p>
 <p>依赖可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。</p>
 <p>app中的组件不需要知道有关实例创建和生命周期的任何事情，这些由我们的依赖注入框架管理的。</p>
 <h2 id="主要的注解"><a href="#主要的注解" class="headerlink" title="主要的注解"></a>主要的注解</h2><p>@Inject: 通常在需要依赖的地方使用这个注解。换句话说，你用它告诉Dagger这个类或者字段需要依赖注入。这样，Dagger就会构造一个这个类的实例并满足他们的依赖。</p>
@@ -386,7 +390,12 @@ public final class MainActivity_MembersInjector implements MembersInjector&lt;Ma
 <pre><code>bossComponent.inject(this)
     -&gt;DaggerBossComponent.inject(MainActivity)
     -&gt;MainActivity_MembersInjector.injectMembers(MainActivity)
-</code></pre><p>未完待续</p>
+</code></pre><p>除了上述这种用@Inject注释构造函数的情况外，我们还可以使用@Provides来告诉Dagger我们想要构造对象。</p>
+<pre><code>@Provides
+public Boss getBoss(){
+    return new Boss();
+}
+</code></pre><p><a href="https://github.com/wuhanzhouguanjie/dagger2example" target="_blank" rel="external">Dagger2+MVP实例代码</a></p>
 </span>
       
     </div>
