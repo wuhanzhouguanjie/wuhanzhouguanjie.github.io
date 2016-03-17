@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="教程," />
+  <meta name="keywords" content="Android学习," />
 
 
 
@@ -45,19 +45,28 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="给 Android 开发者的 RxJava 详解
+导入依赖RxJava githubRxAndroid github
+compile ‘io.reactivex:rxjava:1.1.0’compile ‘io.reactivex:rxandroid:1.1.0’ 
+使用RxJava的好处RxJava代替AsyncTask和Handler使得代码逻辑上保持简洁。
+RxJava 的观察者模式RxJa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/03/01/hello-world/index.html">
+<meta property="og:title" content="RxJava简介">
+<meta property="og:url" content="http://yoursite.com/2016/03/17/RxJava简介/index.html">
 <meta property="og:site_name" content="Muffin">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-03-02T01:45:43.946Z">
+<meta property="og:description" content="给 Android 开发者的 RxJava 详解
+导入依赖RxJava githubRxAndroid github
+compile ‘io.reactivex:rxjava:1.1.0’compile ‘io.reactivex:rxandroid:1.1.0’ 
+使用RxJava的好处RxJava代替AsyncTask和Handler使得代码逻辑上保持简洁。
+RxJava 的观察者模式RxJa">
+<meta property="og:updated_time" content="2016-03-17T10:03:05.781Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="RxJava简介">
+<meta name="twitter:description" content="给 Android 开发者的 RxJava 详解
+导入依赖RxJava githubRxAndroid github
+compile ‘io.reactivex:rxjava:1.1.0’compile ‘io.reactivex:rxandroid:1.1.0’ 
+使用RxJava的好处RxJava代替AsyncTask和Handler使得代码逻辑上保持简洁。
+RxJava 的观察者模式RxJa">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +78,7 @@ Quick">
 
 
 
-  <title> Hello World | Muffin </title>
+  <title> RxJava简介 | Muffin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -225,7 +234,7 @@ Quick">
             
             
               
-                Hello World
+                RxJava简介
               
             
           </h1>
@@ -234,8 +243,8 @@ Quick">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-03-01T14:21:16+08:00" content="2016-03-01">
-              2016-03-01
+            <time itemprop="dateCreated" datetime="2016-03-17T17:02:40+08:00" content="2016-03-17">
+              2016-03-17
             </time>
           </span>
 
@@ -244,8 +253,8 @@ Quick">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -260,8 +269,8 @@ Quick">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/01/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/01/hello-world/" itemprop="commentsCount"></span>
+                <a href="/2016/03/17/RxJava简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/17/RxJava简介/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -280,16 +289,28 @@ Quick">
       
 
       
-        <span itemprop="articleBody"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-</span>
+        <span itemprop="articleBody"><p><a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">给 Android 开发者的 RxJava 详解</a></p>
+<p>导入依赖<br><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava github</a><br><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid github</a></p>
+<p>compile ‘io.reactivex:rxjava:1.1.0’<br>compile ‘io.reactivex:rxandroid:1.1.0’ </p>
+<h2 id="使用RxJava的好处"><a href="#使用RxJava的好处" class="headerlink" title="使用RxJava的好处"></a>使用RxJava的好处</h2><p>RxJava代替AsyncTask和Handler使得代码逻辑上保持简洁。</p>
+<h2 id="RxJava-的观察者模式"><a href="#RxJava-的观察者模式" class="headerlink" title="RxJava 的观察者模式"></a>RxJava 的观察者模式</h2><p>RxJava 有四个基本概念：Observable (可观察者，即被观察者)、 Observer (观察者)、subscribe (订阅)、事件。Observable 和 Observer 通过 subscribe()方法实现订阅关系，从而 Observable 可以在需要的时候发出事件来通知 Observer。</p>
+<p>与传统观察者模式不同， RxJava 的事件回调方法除了普通事件 onNext()（相当于onClick() / onEvent()）之外，还定义了两个特殊的事件：onCompleted() 和 onError()。</p>
+<p>onCompleted(): 事件队列完结。RxJava不仅把每个事件单独处理，还会把它们看做一个队列。RxJava 规定，当不会再有新的 onNext() 发出时，需要触发 onCompleted() 方法作为标志。<br>onError(): 事件队列异常。在事件处理过程中出异常时，onError()会被触发，同时队列自动终止，不允许再有事件发出。<br>在一个正确运行的事件序列中, onCompleted() 和 onError()有且只有一个，并且是事件序列中的最后一个。需要注意的是，onCompleted() 和 onError() 二者也是互斥的，即在队列中调用了其中一个，就不应该再调用另一个。</p>
+<h2 id="线程控制Scheduler"><a href="#线程控制Scheduler" class="headerlink" title="线程控制Scheduler"></a>线程控制Scheduler</h2><p>在不指定线程的情况下，RxJava遵循的是线程不变的原则，即：在哪个线程调用subscribe()，就在哪个线程生产事件；在哪个线程生产事件，就在哪个线程消费事件。如果需要切换线程，就需要用到 Scheduler （调度器）。</p>
+<p>Schedulers.immediate(): 直接在当前线程运行，相当于不指定线程。这是默认的Scheduler。<br>Schedulers.newThread(): 总是启用新线程，并在新线程执行操作。<br>Schedulers.io():I/O操作（读写文件、读写数据库、网络信息交互等）所使用的Scheduler。行为模式和 newThread() 差不多，区别在于 io()的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io()中，可以避免创建不必要的线程。<br>Schedulers.computation():计算所使用的Scheduler。这个计算指的是CPU密集型计算，即不会被 I/O等操作限制性能的操作，例如图形的计算。这个Scheduler使用的固定的线程池，大小为CPU核数。不要把 I/O 操作放在 computation()中，否则I/O操作的等待时间会浪费CPU。<br>另外， Android 还有一个专用的 AndroidSchedulers.mainThread()，它指定的操作将在 Android 主线程运行。</p>
+<p>有了这几个 Scheduler ，就可以使用 subscribeOn() 和 observeOn() 两个方法来对线程进行控制了。</p>
+<p>subscribeOn(): 指定 subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。<br>observeOn(): 指定 Subscriber 所运行在的线程。或者叫做事件消费的线程。</p>
+<p>eg:</p>
+<pre><code>Observable.just(1, 2, 3, 4)
+    .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+    .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+    .subscribe(new Action1&lt;Integer&gt;() {
+        @Override
+        public void call(Integer number) {
+            Log.d(tag, &quot;number:&quot; + number);
+        }
+    });
+</code></pre></span>
       
     </div>
 
@@ -297,7 +318,7 @@ Quick">
       
         <div class="post-tags">
           
-            <a href="/tags/教程/" rel="tag">#教程</a>
+            <a href="/tags/Android学习/" rel="tag">#Android学习</a>
           
         </div>
       
@@ -306,13 +327,13 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/03/16/dagger2依赖注入/" rel="next" title="dagger2依赖注入">
+                <i class="fa fa-chevron-left"></i> dagger2依赖注入
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/02/安卓内存溢出的情形与解决方案/" rel="prev" title="安卓内存泄漏与解决方案">
-                安卓内存泄漏与解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -337,8 +358,8 @@ Quick">
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/03/01/hello-world/"
-                   data-title="Hello World" data-url="http://yoursite.com/2016/03/01/hello-world/">
+              <div class="ds-thread" data-thread-key="2016/03/17/RxJava简介/"
+                   data-title="RxJava简介" data-url="http://yoursite.com/2016/03/17/RxJava简介/">
               </div>
             
           </div>
@@ -443,7 +464,7 @@ Quick">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用RxJava的好处"><span class="nav-number">1.</span> <span class="nav-text">使用RxJava的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RxJava-的观察者模式"><span class="nav-number">2.</span> <span class="nav-text">RxJava 的观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程控制Scheduler"><span class="nav-number">3.</span> <span class="nav-text">线程控制Scheduler</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
