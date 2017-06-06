@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Activity启动流程 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最简单的Activity启动方式, 如下:               Intent intent = new Intent(this, TestActivity.class);         startActivity(intent);        最终会调用Activity中的startActivityForResult方法。               public void start">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activity启动流程">
+<meta property="og:url" content="http://yoursite.com/2017/06/06/Activity启动流程/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最简单的Activity启动方式, 如下:               Intent intent = new Intent(this, TestActivity.class);         startActivity(intent);        最终会调用Activity中的startActivityForResult方法。               public void start">
+<meta property="og:image" content="https://app.yinxiang.com/shard/s47/res/ae7f302d-535e-401a-a8b0-580443aebabd">
+<meta property="og:updated_time" content="2017-06-06T08:23:29.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activity启动流程">
+<meta name="twitter:description" content="最简单的Activity启动方式, 如下:               Intent intent = new Intent(this, TestActivity.class);         startActivity(intent);        最终会调用Activity中的startActivityForResult方法。               public void start">
+<meta name="twitter:image" content="https://app.yinxiang.com/shard/s47/res/ae7f302d-535e-401a-a8b0-580443aebabd">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Activity启动流程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/06/Activity启动流程/" class="article-date">
+  <time datetime="2017-06-06T07:15:35.000Z" itemprop="datePublished">2017-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Activity启动流程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最简单的Activity启动方式, 如下:</p>
+<pre>
+    <code>
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
+    </code>
+</pre>
+
+<p>最终会调用Activity中的startActivityForResult方法。</p>
+<pre>
+    <code>
+        public void startActivityForResult(@RequiresPermission Intent intent, int requestCode,
+            @Nullable Bundle options) {
+        if (mParent == null) {
+            options = transferSpringboardActivityOptions(options);
+            Instrumentation.ActivityResult ar =
+                mInstrumentation.execStartActivity(
+                    this, mMainThread.getApplicationThread(), mToken, this,
+                    intent, requestCode, options);
+            if (ar != null) {
+                mMainThread.sendActivityResult(
+                    mToken, mEmbeddedID, requestCode, ar.getResultCode(),
+                    ar.getResultData());
+            }
+            if (requestCode >= 0) {
+                // If this start is requesting a result, we can avoid making
+                // the activity visible until the result is received.  Setting
+                // this code during onCreate(Bundle savedInstanceState) or onResume() will keep the
+                // activity hidden during this time, to avoid flickering.
+                // This can only be done when a result is requested because
+                // that guarantees we will get information back when the
+                // activity is finished, no matter what happens to it.
+                mStartedActivity = true;
+            }
+
+            cancelInputsAndStartExitTransition(options);
+            // TODO Consider clearing/flushing other event sources and events for child windows.
+        } else {
+            if (options != null) {
+                mParent.startActivityFromChild(this, intent, requestCode, options);
+            } else {
+                // Note we want to go through this method for compatibility with
+                // existing applications that may have overridden it.
+                mParent.startActivityFromChild(this, intent, requestCode);
+            }
+        }
+    }
+    </code>
+</pre>
+
+<p>注意其中的</p>
+<pre>
+    <code>
+        Instrumentation.ActivityResult ar =
+                mInstrumentation.execStartActivity(
+                    this, mMainThread.getApplicationThread(), mToken, this,
+                    intent, requestCode, options);
+    </code>
+</pre>
+
+<p>Instrumentation 类根据google的注释<br>/**</p>
+<ul>
+<li>Base class for implementing application instrumentation code.  When running</li>
+<li>with instrumentation turned on, this class will be instantiated for you</li>
+<li>before any of the application code, allowing you to monitor all of the</li>
+<li>interaction the system has with the application.  An Instrumentation</li>
+<li>implementation is described to the system through an AndroidManifest.xml’s</li>
+<li>&lt;instrumentation&gt; tag.<br>*/<br>用于实现应用程序测试代码的基类。在使用工具运行时，将在任何应用程序代码之前为您实例化这个类，允许您监视系统与应用程序的所有交互。通过AndroidManifest向系统描述了一个测试实现。xml的<instrumentation>标记。<br>简单来说Instrumentation类负责监控系统与应用之间的交互，目前我仅在单元测试中看到过Instrumentation类的踪迹。</instrumentation></li>
+</ul>
+<p>execStartActivity方法中</p>
+<pre>
+    <code>
+        ActivityManagerNative.getDefault()
+                .startActivity(whoThread, who.getBasePackageName(), intent,
+                        intent.resolveTypeIfNeeded(who.getContentResolver()),
+                        token, target != null ? target.mEmbeddedID : null,
+                        requestCode, 0, null, options);
+    </code>
+</pre>
+
+<p>ActivityManagerNative.getDefault()如下</p>
+<pre>
+    <code>
+        static public IActivityManager getDefault() {
+            return gDefault.get();
+        }
+    </code>
+</pre>
+
+<p>再看gDefault是个啥。</p>
+<pre>
+    <code>
+        private static final Singleton<iactivitymanager> gDefault = new Singleton<iactivitymanager>() {
+            protected IActivityManager create() {
+                IBinder b = ServiceManager.getService("activity");
+                if (false) {
+                    Log.v("ActivityManager", "default service binder = " + b);
+                }
+                IActivityManager am = asInterface(b);
+                if (false) {
+                    Log.v("ActivityManager", "default service = " + am);
+                }
+                return am;
+            }
+        };    
+    </iactivitymanager></iactivitymanager></code>
+</pre>
+
+<p>发现gDefault是一个单例IActivityManager 而它的初始化方式IActivityManager am = asInterface(b);典型的AIDL的使用方式。<br>再看ActivityManagerNative.getDefault()获取的是IActivityManager单例, 本质是ServiceManager.getService(“activity”), 即ActivityManagerService。 通过Binder, 远程调用ActivityManagerService类的startActivity方法。<br>Activity启动通过远程调用, 由当前应用交给ActivityManagerService(AMS)处理。</p>
+<p>ActivityManagerService类是负责启动Activity的核心服务, 简称AMS. 启动逻辑包含在ActivityStarter, ActivityStackSupervisor和ActivityStack和三个类中, ActivityStarter负责启动, ActivityStackSupervisor负责管理Stack和TaskRecord, ActivityStack负责管理栈内的Activity.其中的跳转逻辑比较复杂，跳转逻辑如最后的图所示。<br>最终ActivityStackSupervisor类的startSpecificActivityLocked方法调用realStartActivityLocked方法, 执行真正的启动Activity。</p>
+<pre>
+    <code>
+        void startSpecificActivityLocked(ActivityRecord r,
+                boolean andResume, boolean checkConfig) {
+            // 获取启动Activity的进程, 即Application
+            ProcessRecord app = mService.getProcessRecordLocked(r.processName,
+                    r.info.applicationInfo.uid, true);
+            r.task.stack.setLaunchTime(r);
+
+            if (app != null && app.thread != null) {
+                try {
+                    // ...
+                    // 真正启动Activity的过程
+                    realStartActivityLocked(r, app, andResume, checkConfig);
+                    return;
+                }
+                // ...
+            }
+            // ...
+        }
+
+    </code>
+</pre>
+
+<p>在ActivityStackSupervisor的realStartActivityLocked方法中, 含有启动的核心方法scheduleLaunchActivity, 即调用IApplicationThread的scheduleLaunchActivity方法.<br>ActivityThread 中的内部类ApplicationThread 实现了IApplicationThread。</p>
+<pre>
+    <code>
+        public final void scheduleLaunchActivity(...){
+            sendMessage(H.LAUNCH_ACTIVITY, r);
+        }
+    </code>
+</pre>
+
+<p>通过message handler机制发送到handleMessage进行处理。<br>最终调用performLaunchActivity</p>
+<pre>
+    <code>
+        private Activity performLaunchActivity(ActivityClientRecord r, Intent customIntent) {
+            ...
+            java.lang.ClassLoader cl = r.packageInfo.getClassLoader();
+            activity = mInstrumentation.newActivity(
+                    cl, component.getClassName(), r.intent);
+            ...
+            activity.attach(appContext, this, getInstrumentation(), r.token,
+                        r.ident, app, r.intent, r.activityInfo, title, r.parent,
+                        r.embeddedID, r.lastNonConfigurationInstances, config,
+                        r.referrer, r.voiceInteractor, window);        
+        }
+    </code>
+</pre>
+
+<p>通过ClassLoader加载activity类生成实例。随后通过attach方法绑定到window最终显示出来。</p>
+<p><img src="https://app.yinxiang.com/shard/s47/res/ae7f302d-535e-401a-a8b0-580443aebabd"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/06/Activity启动流程/" data-id="cj3latvsp0000ckmdwipszvcm" class="article-share-link">Delen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/06/06/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ouder</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archieven</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recente berichten</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/06/Activity启动流程/">Activity启动流程</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/06/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
